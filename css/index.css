@@ -1,0 +1,160 @@
+body {
+    text-align: center;
+}
+
+.game-board {
+    width: 40%;
+    height: 400px;
+    background-color: #f5f5f5;
+    margin: 10px auto 150px;
+}
+
+.char {
+    width: 100px;
+    height: 100px;
+    background-color: #f5f5f5;
+    border: 1px solid #000;
+}
+
+.keyboard {
+    width: 40%;
+    height: 10%;
+    background-color: #f5f5f5;
+    margin: 10px auto;
+}
+
+.keyboard-button {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 9px;
+    font-weight: bold;
+    user-select: none;
+}
+.keyboard-button:hover{
+    background-color: #f5f5f5;
+}
+
+.keyboard-button-correct-letter-correct-place {
+    background-color: green;
+}
+
+.keyboard-button-correct-letter-wrong-place {
+    background-color: orange;
+}
+
+.keyboard-button-wrong-letter {
+    background-color: grey;
+}
+
+.game-board-row {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    border: 0;
+}
+
+.game-board-col {
+    width: 20%;
+    height: 100%;
+    background-color: #f5f5f5;
+    border: 1px solid white;
+}
+
+.letterInput {
+    width: 100% !important;
+    height: 100% !important;
+    font-size: 3vw !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    pointer-events: none !important;
+}
+
+.correctLetterCorrectPlace {
+    color: white !important;
+    background-color: green !important;
+}
+.correctLetterCorrectPlaceAdd{
+    width:20px !important; height:20px !important; display:inline-block;
+}
+
+.correctLetterWrongPlace {
+    color: white !important;
+    background-color: orange !important;
+}
+
+.correctLetterWrongPlaceAdd{
+    width:20px !important; height:20px !important; display:inline-block;
+}
+
+.wrongLetter {
+    color: white !important;
+    background-color: black !important;
+}
+.wrongLetterAdd{
+    width:20px !important; height:20px !important; display:inline-block;
+}
+
+.infoBox {
+    border: 1px;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+}
+
+.showTheMeaningDiv {
+    text-align: left;
+    width: 300px;
+    margin: 0 auto;
+    top: 30px;
+    border: 1px solid grey;
+    position: absolute;
+    padding: 4px;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.toastContainer{
+    position: absolute;
+    height: 99vh;
+    width:320px;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: hidden;
+    padding-bottom: 60px;
+
+}
+.toast{
+    width: 300px;
+    height: 60px;
+    text-align: left;
+    padding: 10px;
+    background-color: lightyellow;
+    border-bottom: 1px solid #000;
+    border-color: gray;
+    border-radius: 5px;
+    color:black;
+    transition: opacity 1s ease; /* Smooth transition for opacity */
+    box-shadow: #00acc1;
+    flex-shrink: 0;
+}
+.warning{
+    background-color: hotpink;
+}
+.info{
+    background-color: lightblue;
+}
