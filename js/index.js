@@ -143,7 +143,7 @@ const vSW = {
             // console.log(JSON.stringify(vSW.gameBoard.guessedWords))
 
             if(lastEnteredWord.length!==vSW.gameBoard.colCount){
-                vSW.gameBoard.guessedWords.forEach(word=>console.log(word));
+                //vSW.gameBoard.guessedWords.forEach(word=>console.log(word));
                 console.log(lastEnteredWord.length,vSW.gameBoard.colCount)
                 vSW.toastMessages({message:`You need to enter ${vSW.gameBoard.colCount} chars to make a guess!`, time:3, type:"info"});
                 return;
@@ -209,7 +209,7 @@ const vSW = {
                 let askedWord = vSW.dictionary[vSW.askedWordIndex];
                 vSW.gameBoard.endGame({didWin:false, message:`
                 Board is full. Game Ended! You Lost!
-                Asked word was ${askedWord}
+                Asked word was <b>${askedWord}</b>!
                 `});
 
             }
@@ -221,16 +221,18 @@ const vSW = {
         endGame:(data={didWin:false, message:"No message received."})=>{
             let playedGameLogs=JSON.parse(window.localStorage.getItem(vSW.name));
             console.log(`Kayit oncesi data: ${JSON.stringify(playedGameLogs)}`);
+            let messageType = 'success';
             if(data.didWin){
                 playedGameLogs.score[(vSW.gameBoard.guessedWords.length)]+=1
                 window.localStorage.setItem(vSW.name,JSON.stringify(playedGameLogs))
                 setTimeout(vSW.gameBoard.reset,2000);
             }else{
+                messageType= 'error';
                 playedGameLogs.score["fail"]+=1
                 window.localStorage.setItem(vSW.name,JSON.stringify(playedGameLogs))
                 setTimeout(vSW.gameBoard.reset,2000);
             }
-            vSW.toastMessages({message:data.message.toString(), time:5});
+            vSW.toastMessages({message:data.message.toString(), time:5, type:messageType});
             vSW.gameBoard.showInfo("SCORE",JSON.parse(window.localStorage.getItem(vSW.name)).score);
             document.querySelectorAll( `#${vSW.name}-keyboard button`).forEach(btn=>btn.setAttribute('disabled','disabled'));
             console.log(`Kayit sonrasi data: ${JSON.stringify(playedGameLogs)}`);
@@ -308,7 +310,7 @@ author: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar
             document.getElementById(vSW.name + '-keyboard').appendChild(enterButton);
         }
     },
-    toastMessages:(dataObj={message:String, time:Number, type:String})=>{
+    toastMessages:(dataObj={message:String, time:Number, type:String="message"})=>{
         //alert(message);
         if(!document.querySelector('.toastContainer')){
             let toastContainer = document.createElement('div');

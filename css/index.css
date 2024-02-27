@@ -158,3 +158,12 @@ body {
 .info{
     background-color: lightblue;
 }
+.message{
+    background-color: lightyellow;
+}
+.success{
+    background-color: lightgreen;
+}
+.error{
+    background-color: lightcoral;
+}
