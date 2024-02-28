@@ -6,8 +6,13 @@ const vSW = {
     version:'2024.0.1',
     author:'https://github.com/caglarorhan',
     dictionary:[],
+    defaultLang:'tr',
     charSet:'a,b,c,ç,d,e,f,g,ğ,h,ı,i,j,k,l,m,n,o,ö,p,r,s,ş,t,u,ü,v,y,z'.split(','),
+    langConvertMaps: {
+        tr:{u: 'ü', i: 'i', o: 'ö', c: 'ç', s: 'ş', g: 'ğ'}
+    },
     askedWordIndex:null,
+    isSHIFTPressed:false,
     meaningsOfWords:Object.create(null),
     init: () => {
         vSW.dictionary = dictionary;
@@ -127,6 +132,8 @@ const vSW = {
             for (let x = 0; x < vSW.gameBoard.guessedWords.length; x++) {
                 for(let y=0; y<vSW.gameBoard.guessedWords[x].length;y++){
                     let targetLetterFromGuessedWord = vSW.gameBoard.guessedWords[x][y];
+                    console.log(`All guessed words: ${vSW.gameBoard.guessedWords}`);
+                    console.log(`TargetLetterFromGuessedWord: ${targetLetterFromGuessedWord}`);
                     let inputIndex = (x*vSW.gameBoard.colCount)+y;
                     theInputs[inputIndex].value=targetLetterFromGuessedWord.toLocaleUpperCase('tr');
                 }
@@ -281,6 +288,7 @@ author: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar
                 button.dataset.letterValue=char.toLocaleUpperCase('tr');
                 button.classList.add("keyboard-button");
                 button.addEventListener('click', () => {
+
                     vSW.gameBoard.addChar(char);
                 });
                 document.getElementById(vSW.name + '-keyboard').appendChild(button);
@@ -308,6 +316,11 @@ author: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar
             enterButton.id=`${vSW.name}-enter-button`;
             enterButton.addEventListener('click',vSW.gameBoard.checkEnteredWord);
             document.getElementById(vSW.name + '-keyboard').appendChild(enterButton);
+
+            // SHIFT BUTTON ACKNOWLEDGE
+            let acknowledge = document.createElement('span');
+            acknowledge.innerHTML = ` Press <button disabled> Shift </button> Key for Alternative Characters`;
+            document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },
     toastMessages:(dataObj={message:String, time:Number, type:String="message"})=>{
@@ -381,6 +394,16 @@ window.addEventListener('load',()=>{
     document.body.insertAdjacentElement('afterbegin',versionTag);
 });
 document.addEventListener("keydown", event => {
+    if(event.shiftKey && !vSW.isSHIFTPressed){
+        [...Object.entries(vSW.langConvertMaps[vSW.defaultLang])].forEach(([srcChar, targetChar])=>{
+            targetChar = targetChar.toLocaleUpperCase('tr');
+            console.log(srcChar, targetChar);
+            document.querySelectorAll('[data-letter-value="'+targetChar+'"]').forEach(btn=>btn.classList.add('alternative'));
+            document.querySelectorAll('[data-letter-value="'+srcChar.toLocaleUpperCase('tr')+'"]').forEach(btn=>btn.classList.add('original'));
+        })
+        vSW.isSHIFTPressed=true;
+        console.log('SHIFT key basili:'+ vSW.isSHIFTPressed);
+    }
     if(event.key==="Enter"){
         document.querySelector(`#${vSW.name}-enter-button`).click();
         return;
@@ -390,8 +413,28 @@ document.addEventListener("keydown", event => {
         return;
     }
     if (/^[a-z]*$/gi.test(event.key) && event.key.length===1){
-        vSW.gameBoard.addChar(event.key.toLocaleLowerCase('tr'));
-
+        if(vSW.isSHIFTPressed){
+            console.log('Shift key basiliyken tusa basildi. Basilan tus: '+event.key);
+            let realChar = vSW.langConvertMaps[vSW.defaultLang][event.key.toLocaleLowerCase('tr')] || event.key.toLocaleLowerCase('tr')
+            vSW.gameBoard.addChar(realChar)
+        }else{
+            vSW.gameBoard.addChar(event.key.toLocaleLowerCase('tr'));
+        }
     }
 });
+
+document.addEventListener("keyup", event => {
+    console.log(event.key);
+    if (!event.shiftKey) {
+        console.log('Birakilan shiftkeymis');
+                        document.querySelectorAll('.keyboard-button').forEach(btn => {
+                            btn.classList.remove('alternative');
+                        })
+                        document.querySelectorAll('.keyboard-button').forEach(btn => {
+                            btn.classList.remove('original');
+                        })
+        vSW.isSHIFTPressed=false;
+                        console.log('SHIFT key birakildi:'+ vSW.isSHIFTPressed);
+                        }
+})
 

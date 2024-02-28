@@ -30,9 +30,29 @@ body {
     border-radius: 9px;
     font-weight: bold;
     user-select: none;
+    position: relative;
+}
+.keyboard-button.original{
+    background-color: lightyellow;
+    color: black;
+}
+.keyboard-button.original::after{
+    content: 'PRESS';
+    font-size:7px;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+    background-color: orange;
+    color:black;
+    padding:3px;
+    border-radius: 3px;
+}
+.keyboard-button.alternative{
+    background-color: yellow;
+    color:darkorange;
 }
 .keyboard-button:hover{
-    background-color: #f5f5f5;
+    background-color: white !important;
 }
 
 .keyboard-button-correct-letter-correct-place {
@@ -167,3 +187,4 @@ body {
 .error{
     background-color: lightcoral;
 }
+
