@@ -128,12 +128,12 @@ const vSW = {
                 i.value='';
             });
             let askedWord = vSW.dictionary[vSW.askedWordIndex];
-            console.log(askedWord);
+            //console.log(askedWord);
             for (let x = 0; x < vSW.gameBoard.guessedWords.length; x++) {
                 for(let y=0; y<vSW.gameBoard.guessedWords[x].length;y++){
                     let targetLetterFromGuessedWord = vSW.gameBoard.guessedWords[x][y];
-                    console.log(`All guessed words: ${vSW.gameBoard.guessedWords}`);
-                    console.log(`TargetLetterFromGuessedWord: ${targetLetterFromGuessedWord}`);
+                    //console.log(`All guessed words: ${vSW.gameBoard.guessedWords}`);
+                    //console.log(`TargetLetterFromGuessedWord: ${targetLetterFromGuessedWord}`);
                     let inputIndex = (x*vSW.gameBoard.colCount)+y;
                     theInputs[inputIndex].value=targetLetterFromGuessedWord.toLocaleUpperCase('tr');
                 }
