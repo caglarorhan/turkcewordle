@@ -1,10 +1,18 @@
-# Turkish Wordle - AWord Guess Game (Türkçe Wordle - Bir Türkçe Kelime Tahmin Oyunu)
+# Turkish Wordle - A Word Guess Game
+**Türkçe Wordle - Bir Türkçe Kelime Tahmin Oyunu**
 
 ## Overview
 
 Turkish Word Guess Game is a fun and educational game inspired by the popular Wordle. This game challenges players to guess a hidden Turkish word within a limited number of attempts. It's an engaging way to improve vocabulary and language skills while having fun.
 
-![Game Screenshot](screenshot.png)
+![Game Screenshot](/screenshots/emptygameboard.JPG)
+![Game Screenshot](/screenshots/filledgameboard.JPG)
+![Game Screenshot](/screenshots/game_information.JPG)
+![Game Screenshot](/screenshots/shiftkeypressed.JPG)
+![Game Screenshot](/screenshots/warningtoastmessage.JPG)
+![Game Screenshot](/screenshots/warningtoastmessage_2.JPG)
+![Game Screenshot](/screenshots/warningtoastmessage_3.JPG)
+
 
 ## Features
 
