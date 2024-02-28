@@ -1,8 +1,19 @@
 body {
     text-align: center;
 }
-h6{
+.logoVersionTag{
     font-weight: bold;
+    font-size: 24px;
+    margin-left:10px;
+}
+.versionTag{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.version{
+font-size: 10px;
 }
 .game-board {
     width: 40%;
@@ -125,11 +136,14 @@ h6{
     width: 200px;
     height: 200px;
     position: absolute;
-    top: 0;
+    top: 30px;
     right: 0;
     display: block;
+    padding-top:0px;
 }
-
+.infoBox h5{
+    font-weight:bold;
+}
 .showTheMeaningDiv {
     text-align: left;
     width: 300px;

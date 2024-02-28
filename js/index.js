@@ -3,7 +3,7 @@ document.body.innerHTML='';
 document.title="Turkce Wordle: Turkce Kelime Tahmin Oyunu";
 const vSW = {
     name: 'TurkceWordle',
-    version:'2024.0.1',
+    version:'2024.0.2',
     author:'https://github.com/caglarorhan',
     dictionary:[],
     defaultLang:'tr',
@@ -23,7 +23,7 @@ const vSW = {
                 })
                 vSW.gameBoard.setBoard();
                 vSW.askedWordIndex = vSW.getRandomWordIndexFromDictionary();
-                vSW.gameBoard.showInfo("SCORE",JSON.parse(window.localStorage.getItem(vSW.name)).score);
+                vSW.gameBoard.showInfo("SKOR",JSON.parse(window.localStorage.getItem(vSW.name)).score);
 
             })
 
@@ -152,7 +152,7 @@ const vSW = {
             if(lastEnteredWord.length!==vSW.gameBoard.colCount){
                 //vSW.gameBoard.guessedWords.forEach(word=>console.log(word));
                 console.log(lastEnteredWord.length,vSW.gameBoard.colCount)
-                vSW.toastMessages({message:`You need to enter ${vSW.gameBoard.colCount} chars to make a guess!`, time:3, type:"info"});
+                vSW.toastMessages({message:`Tahmin icin en az ${vSW.gameBoard.colCount} harf girmelisiniz!`, time:3, type:"info"});
                 return;
             }
             if(lastEnteredWord.length===vSW.gameBoard.colCount){
@@ -165,14 +165,14 @@ const vSW = {
 
                 //if word guessed correctly
                 if(lastEnteredWord.join('')===askedWord){
-                    vSW.gameBoard.endGame({didWin:true, message:"Bravvo... You found the asked word!"});
+                    vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
                         vSW.getTheMeaning(lastEnteredWord.join(''));
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
-                        vSW.toastMessages({message:`This word is not on the dictionary!`, time:3, type:"warning"});
+                        vSW.toastMessages({message:`Bu kelime sozlukte yok!`, time:3, type:"warning"});
                         return;
                     }
 
@@ -225,7 +225,7 @@ const vSW = {
             letter = letter.toLocaleUpperCase('tr');
                 document.querySelector(`#${vSW.name}-keyboard button[data-letter-value='${letter}']`).classList.add(newClassName);
         },
-        endGame:(data={didWin:false, message:"No message received."})=>{
+        endGame:(data={didWin:false, message:"Herhangi bir mesaj bulunamadi."})=>{
             let playedGameLogs=JSON.parse(window.localStorage.getItem(vSW.name));
             //console.log(`Kayit oncesi data: ${JSON.stringify(playedGameLogs)}`);
             let messageType = 'success';
@@ -260,12 +260,12 @@ const vSW = {
                 infoBox.innerHTML+= `<div>${k}:${v}</div>`;
             })
             infoBox.innerHTML+=`<hr>
-<h5>Color Hints</h5>
-<div style="text-align: left;"><span class="correctLetterCorrectPlace correctLetterCorrectPlaceAdd"> </span> correct letter correct place</div>
-<div style="text-align: left;"><span class="correctLetterWrongPlace correctLetterWrongPlaceAdd" "> </span> correct letter wrong place</div>
-<div style="text-align: left;"><span class="wrongLetter wrongLetterAdd"> </span> wrong letter</div>
+<h5>Renk Bilgisi</h5>
+<div style="text-align: left;"><span class="correctLetterCorrectPlace correctLetterCorrectPlaceAdd"> </span> doğru harf, doğru yerde</div>
+<div style="text-align: left;"><span class="correctLetterWrongPlace correctLetterWrongPlaceAdd" "> </span> doğru harf, yanlış yerde</div>
+<div style="text-align: left;"><span class="wrongLetter wrongLetterAdd"> </span> yanlış harf</div>
 <hr>
-author: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar Orhan</a>
+Kodlayan: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar Orhan</a>
 `;
 
             document.body.append(infoBox);
@@ -319,7 +319,7 @@ author: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar
 
             // SHIFT BUTTON ACKNOWLEDGE
             let acknowledge = document.createElement('span');
-            acknowledge.innerHTML = ` Press <button disabled> Shift </button> Key for Alternative Characters`;
+            acknowledge.innerHTML = ` Turkce karakterler icin <button disabled> Shift </button> tusuna basik tutun.></>`;
             document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },
@@ -368,7 +368,7 @@ author: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar
         vSW.meaningsOfWords[word].forEach(anlam=>{
             theWordMeaningDiv.innerHTML+=`<li>${anlam}</li>`;
         });
-        theWordMeaningDiv.innerHTML+=`<hr>Source: <a href="https://sozluk.gov.tr" target="_blank" rel="noopener noreferrer">TDK Dictionary</a>`;
+        theWordMeaningDiv.innerHTML+=`<hr>Kaynak: <a href="https://sozluk.gov.tr" target="_blank" rel="noopener noreferrer">TDK Dil Sozlugu</a>`;
         let boardDivItem = document.querySelector(`#${vSW.name}`);
         let rect = boardDivItem.getBoundingClientRect();
         theWordMeaningDiv.style.top = rect.top+"px";
@@ -389,9 +389,15 @@ window.addEventListener('resize', vSW.hideTheMeaning);
 window.addEventListener('load',()=>{
     vSW.init();
     document.body.classList.add('body');
+    let logo = document.createElement('img');
+    logo.src='./img/TurkceWordle_24.png';
+    logo.classList.add('logo');
+    document.body.insertAdjacentElement('afterbegin',logo);
     let versionTag = document.createElement('div');
-    versionTag.innerHTML=`<h6>${vSW.name} version: ${vSW.version}</h6>`;
+    versionTag.classList.add('versionTag');
     document.body.insertAdjacentElement('afterbegin',versionTag);
+    versionTag.appendChild(logo);
+    versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.name} <sup class="version">v.${vSW.version}</sup></span>`;
 });
 document.addEventListener("keydown", event => {
     if(event.shiftKey && !vSW.isSHIFTPressed){
