@@ -227,7 +227,7 @@ const vSW = {
         },
         endGame:(data={didWin:false, message:"No message received."})=>{
             let playedGameLogs=JSON.parse(window.localStorage.getItem(vSW.name));
-            console.log(`Kayit oncesi data: ${JSON.stringify(playedGameLogs)}`);
+            //console.log(`Kayit oncesi data: ${JSON.stringify(playedGameLogs)}`);
             let messageType = 'success';
             if(data.didWin){
                 playedGameLogs.score[(vSW.gameBoard.guessedWords.length)]+=1
@@ -242,7 +242,7 @@ const vSW = {
             vSW.toastMessages({message:data.message.toString(), time:5, type:messageType});
             vSW.gameBoard.showInfo("SCORE",JSON.parse(window.localStorage.getItem(vSW.name)).score);
             document.querySelectorAll( `#${vSW.name}-keyboard button`).forEach(btn=>btn.setAttribute('disabled','disabled'));
-            console.log(`Kayit sonrasi data: ${JSON.stringify(playedGameLogs)}`);
+            //console.log(`Kayit sonrasi data: ${JSON.stringify(playedGameLogs)}`);
         },
         showInfo:(header="Header",data)=>{
             let infoBox;
@@ -397,12 +397,12 @@ document.addEventListener("keydown", event => {
     if(event.shiftKey && !vSW.isSHIFTPressed){
         [...Object.entries(vSW.langConvertMaps[vSW.defaultLang])].forEach(([srcChar, targetChar])=>{
             targetChar = targetChar.toLocaleUpperCase('tr');
-            console.log(srcChar, targetChar);
+            //console.log(srcChar, targetChar);
             document.querySelectorAll('[data-letter-value="'+targetChar+'"]').forEach(btn=>btn.classList.add('alternative'));
             document.querySelectorAll('[data-letter-value="'+srcChar.toLocaleUpperCase('tr')+'"]').forEach(btn=>btn.classList.add('original'));
         })
         vSW.isSHIFTPressed=true;
-        console.log('SHIFT key basili:'+ vSW.isSHIFTPressed);
+        //console.log('SHIFT key basili:'+ vSW.isSHIFTPressed);
     }
     if(event.key==="Enter"){
         document.querySelector(`#${vSW.name}-enter-button`).click();
@@ -414,7 +414,7 @@ document.addEventListener("keydown", event => {
     }
     if (/^[a-z]*$/gi.test(event.key) && event.key.length===1){
         if(vSW.isSHIFTPressed){
-            console.log('Shift key basiliyken tusa basildi. Basilan tus: '+event.key);
+            //console.log('Shift key basiliyken tusa basildi. Basilan tus: '+event.key);
             let realChar = vSW.langConvertMaps[vSW.defaultLang][event.key.toLocaleLowerCase('tr')] || event.key.toLocaleLowerCase('tr')
             vSW.gameBoard.addChar(realChar)
         }else{
@@ -424,9 +424,9 @@ document.addEventListener("keydown", event => {
 });
 
 document.addEventListener("keyup", event => {
-    console.log(event.key);
+    //console.log(event.key);
     if (!event.shiftKey) {
-        console.log('Birakilan shiftkeymis');
+        //console.log('Birakilan shiftkeymis');
                         document.querySelectorAll('.keyboard-button').forEach(btn => {
                             btn.classList.remove('alternative');
                         })
@@ -434,7 +434,7 @@ document.addEventListener("keyup", event => {
                             btn.classList.remove('original');
                         })
         vSW.isSHIFTPressed=false;
-                        console.log('SHIFT key birakildi:'+ vSW.isSHIFTPressed);
+                        //console.log('SHIFT key birakildi:'+ vSW.isSHIFTPressed);
                         }
 })
 
