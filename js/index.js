@@ -390,7 +390,7 @@ window.addEventListener('load',()=>{
     vSW.init();
     document.body.classList.add('body');
     let versionTag = document.createElement('div');
-    versionTag.innerHTML=`version: ${vSW.version}`;
+    versionTag.innerHTML=`<h6>${vSW.name} version: ${vSW.version}</h6>`;
     document.body.insertAdjacentElement('afterbegin',versionTag);
 });
 document.addEventListener("keydown", event => {

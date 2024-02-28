@@ -1,45 +1,15 @@
 {
-  "name": "Vanilla Smell Words",
-  "short_name": "Vanilla Smell Words",
-  "description": "Word guessing game in Turkish language",
-  "homepage_url": "https://www.linkedin.com/in/caglarorhan/",
-  "version": "2023.0.1",
-  "manifest_version": 3,
-  "action": {
-    "default_popup": "popup.html",
-    "default_title": "VANILLA SMELL WORDS: Turkish",
-    "default_icon": {
-      "16": "./img/vanillaSmellWord_16.png",
-      "32": "./img/vanillaSmellWord_32.png",
-      "64": "./img/vanillaSmellWord_64.png",
-      "128": "./img/vanillaSmellWord_128.png"
-    }
-  },
-  "icons": {
-    "16": "./img/vanillaSmellWord_16.png",
-    "32": "./img/vanillaSmellWord_32.png",
-    "64": "./img/vanillaSmellWord_64.png",
-    "128": "./img/vanillaSmellWord_128.png"
-  },
-  "content_scripts": [
+  "name": "Turkce Wordle",
+  "short_name": "Turkce Wordle",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2196F3",
+  "icons": [
     {
-      "matches": ["*://*.caglarorhan.com/vanillaSmellWord"],
-      "match_about_blank": true,
-      "js": ["./js/dictionary.js","./js/materialize.min.js","./js/content.js"],
-      "css": ["./css/content.css","./css/materialize.min.css"]
+      "src": "./img/TurkceWordle_256.png",
+      "sizes": "256x256",
+      "type": "image/png"
     }
-  ],
-  "background": {
-    "service_worker": "./js/background.js"
-  },
-  "permissions": ["activeTab", "storage"],
-  "commands": {
-    "_execute_action": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+W",
-        "mac": "MacCtrl+Shift+W"
-      },
-      "description": "Opens popup.html"
-    }
-  }
+  ]
 }

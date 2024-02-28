@@ -5,10 +5,20 @@
     <title>Turkce Wordle</title>
     <link rel="stylesheet" href="css/materialize.min-.css">
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="icon" href="./img/TurkceWordle_32.png">
+    <link rel="manifest" href="./manifest.json">
+
 </head>
 <body>
 Turkce Wordle by <a href="https://github.com/caglarorhan" target="_blank">caglaror</a>
 <script src="./js/materialize.min.js"></script>
 <script type="module" src="./js/index.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('./service-worker.js');
+        });
+    }
+</script>
 </body>
 </html>

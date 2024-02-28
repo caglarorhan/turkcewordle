@@ -1,7 +1,9 @@
 body {
     text-align: center;
 }
-
+h6{
+    font-weight: bold;
+}
 .game-board {
     width: 40%;
     height: 400px;
