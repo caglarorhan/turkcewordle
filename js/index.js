@@ -266,6 +266,10 @@ const vSW = {
 <div style="text-align: left;"><span class="wrongLetter wrongLetterAdd"> </span> yanlış harf</div>
 <hr>
 Kodlayan: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar Orhan</a>
+<br>
+Beni desteklemek icin: <a title="Donating through PayPal" href="https://paypal.me/caglarorhan?country.x=US&locale.x=en_US" target="_blank"><img src="./img/paypal-mark-color.svg" alt="PayPal uzerinden bagis" width="20" height="20" /></a>  
+<a title="BuyMeACoffee uzerinden bagis" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="Donating through BuyMeACoffee" width="20" height="20" /></a>
+
 `;
 
             document.body.append(infoBox);
@@ -319,7 +323,7 @@ Kodlayan: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Cagl
 
             // SHIFT BUTTON ACKNOWLEDGE
             let acknowledge = document.createElement('span');
-            acknowledge.innerHTML = ` Turkce karakterler icin <button disabled> Shift </button> tusuna basik tutun.></>`;
+            acknowledge.innerHTML = ` Turkce karakterler icin <button disabled> Shift </button> tusuna basili tutun.`;
             document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },
@@ -400,13 +404,15 @@ window.addEventListener('load',()=>{
     versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.name} <sup class="version">v.${vSW.version}</sup></span>`;
 });
 document.addEventListener("keydown", event => {
+
     if(event.shiftKey && !vSW.isSHIFTPressed){
+        vSW.toastMessages({time:6, message: "SHIFT basikken ENG benzerine basin. Ornegin: Ğ icin G'ye basin, Ş icin S'ye", type:"info"});
         [...Object.entries(vSW.langConvertMaps[vSW.defaultLang])].forEach(([srcChar, targetChar])=>{
             targetChar = targetChar.toLocaleUpperCase('tr');
             //console.log(srcChar, targetChar);
             document.querySelectorAll('[data-letter-value="'+targetChar+'"]').forEach(btn=>btn.classList.add('alternative'));
             document.querySelectorAll('[data-letter-value="'+srcChar.toLocaleUpperCase('tr')+'"]').forEach(btn=>btn.classList.add('original'));
-        })
+        });
         vSW.isSHIFTPressed=true;
         //console.log('SHIFT key basili:'+ vSW.isSHIFTPressed);
     }

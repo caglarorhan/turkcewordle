@@ -1,1 +1,5 @@
 .idea
+/screenshots
+/node_modules
+package-lock.json
+package.json
