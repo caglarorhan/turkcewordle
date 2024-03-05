@@ -267,8 +267,8 @@ const vSW = {
 <hr>
 Kodlayan: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar Orhan</a>
 <br>
-Beni desteklemek icin: <a title="Donating through PayPal" href="https://paypal.me/caglarorhan?country.x=US&locale.x=en_US" target="_blank"><img src="./img/paypal-mark-color.svg" alt="PayPal uzerinden bagis" width="20" height="20" /></a>  
-<a title="BuyMeACoffee uzerinden bagis" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="Donating through BuyMeACoffee" width="20" height="20" /></a>
+Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://paypal.me/caglarorhan?country.x=US&locale.x=en_US" target="_blank"><img src="./img/paypal-mark-color.svg" alt="PayPal uzerinden bagis" width="20" height="20" /></a>  
+<a title="BuyMeACoffee dan bana bir kahve ismarlayin ;)" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="BuyMeACoffee dan bana bir kahve ismarlayin ;)" width="20" height="20" /></a>
 
 `;
 
