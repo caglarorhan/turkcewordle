@@ -342,6 +342,9 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
         document.querySelector('.toastContainer').appendChild(toastDiv);
         setTimeout(() => {
             toastDiv.remove();
+            if(!document.querySelectorAll('.toast').length){
+                document.querySelector('.toastContainer').remove();
+            }
         }, 5*1000);
     },
     getTheMeaning:(word)=>{
