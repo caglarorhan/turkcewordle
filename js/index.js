@@ -215,8 +215,8 @@ const vSW = {
             if (vSW.gameBoard.guessedWords.length-1 === vSW.gameBoard.rowCount) {
                 let askedWord = vSW.dictionary[vSW.askedWordIndex];
                 vSW.gameBoard.endGame({didWin:false, message:`
-                Board is full. Game Ended! You Lost!
-                Asked word was <b>${askedWord}</b>!
+                Oyun bitti! Kaybettiniz!
+                Sorulan kelime: <b>${askedWord}</b>!
                 `});
 
             }
