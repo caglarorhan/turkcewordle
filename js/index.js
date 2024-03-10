@@ -269,7 +269,8 @@ Kodlayan: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Cagl
 <br>
 Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://paypal.me/caglarorhan?country.x=US&locale.x=en_US" target="_blank"><img src="./img/paypal-mark-color.svg" alt="PayPal uzerinden bagis" width="20" height="20" /></a>  
 <a title="BuyMeACoffee dan bana bir kahve ismarlayin ;)" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="BuyMeACoffee dan bana bir kahve ismarlayin ;)" width="20" height="20" /></a>
-
+<br>
+<a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank"><img src="./img/TurkceWordle_32.png" alt="Freepik" width="20" height="20" /></a> Icon by Freepik</a>
 `;
 
             document.body.append(infoBox);
