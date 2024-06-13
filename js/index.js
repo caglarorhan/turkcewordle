@@ -306,7 +306,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             })
             // DELETE BUTTON
             let deleteButton = document.createElement('button');
-            deleteButton.classList.add("keyboard-button");
+            deleteButton.classList.add("keyboard-button", "wide-button");
             deleteButton.innerHTML = "←";
             deleteButton.id=`${vSW.name}-delete-button`;
             deleteButton.addEventListener('click',()=>{
@@ -322,7 +322,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             document.getElementById(vSW.name + '-keyboard').appendChild(deleteButton);
             // ENTER-RETURN BUTTON ⏎
             let enterButton = document.createElement('button');
-            enterButton.classList.add("keyboard-button");
+            enterButton.classList.add("keyboard-button","wide-button");
             enterButton.innerHTML = "⏎";
             enterButton.id=`${vSW.name}-enter-button`;
             enterButton.addEventListener('click',vSW.gameBoard.checkEnteredWord);
@@ -330,7 +330,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
 
             // SHIFT BUTTON ACKNOWLEDGE
             let acknowledge = document.createElement('span');
-            acknowledge.innerHTML = ` <br>Turkce karakterler icin <button disabled> Shift </button> tusuna basili tutun.`;
+            acknowledge.innerHTML = ` <span class="tr-char-info"><br>Turkce karakterler icin <button disabled> Shift </button> tusuna basili tutun.</span>`;
             document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },
