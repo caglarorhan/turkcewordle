@@ -1,8 +1,9 @@
 import {dictionary} from './dictionary.js';
 document.body.innerHTML='';
-document.title="Turkce Wordle: Turkce Kelime Tahmin Oyunu";
+document.title="Türkçe Wordle: Türkçe Kelime Tahmin Oyunu";
 const vSW = {
     name: 'TurkceWordle',
+    writtenName:'Türkçe Wordle',
     version:'2024.0.2',
     author:'https://github.com/caglarorhan',
     dictionary:[],
@@ -411,7 +412,7 @@ window.addEventListener('load',()=>{
     versionTag.classList.add('versionTag');
     document.body.insertAdjacentElement('afterbegin',versionTag);
     versionTag.appendChild(logo);
-    versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.name} <sup class="version">v.${vSW.version}</sup></span>`;
+    versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.writtenName} <sup class="version">v.${vSW.version}</sup></span>`;
 });
 document.addEventListener("keydown", event => {
 
