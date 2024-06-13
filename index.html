@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Turkce Wordle</title>
-    <link rel="stylesheet" href="css/materialize.min-.css">
     <link rel="stylesheet" href="./css/index.css">
     <link rel="icon" href="./img/TurkceWordle_32.png">
     <link rel="manifest" href="./manifest.json">
-
 </head>
 <body>
 Turkce Wordle by <a href="https://github.com/caglarorhan" target="_blank">caglaror</a>
 
-<script src="./js/materialize.min.js"></script>
 <script type="module" src="./js/index.js"></script>
 <script>
     if ('serviceWorker' in navigator) {
@@ -20,25 +18,11 @@ Turkce Wordle by <a href="https://github.com/caglarorhan" target="_blank">caglar
             navigator.serviceWorker.register('./service-worker.js');
         });
     }
-
-
     window.onerror = function(message, source, lineno, colno, error) {
         if (error && error.code === "MODULE_NOT_FOUND") {
             console.error(`The module ${source} could not be found.`);
         }
     };
-
-    import("instructice")
-        .then(module => {
-            let Instructice = module.default;
-            let instructice = new Instructice();
-
-        })
-        .catch(error => {
-            console.error(`An error occurred while importing the module: ${error}`);
-        });
-
 </script>
-
 </body>
 </html>

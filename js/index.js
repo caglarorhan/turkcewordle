@@ -218,7 +218,7 @@ const vSW = {
                 Oyun bitti! Kaybettiniz!
                 Sorulan kelime: <b>${askedWord}</b>!
                 `});
-
+                document.querySelector(".infoBox").classList.remove("hidden");
             }
         },
         keyboardKeyAddClass:(letter,newClassName, oldClassName)=>{
@@ -271,9 +271,15 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
 <a title="BuyMeACoffee dan bana bir kahve ismarlayin ;)" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="BuyMeACoffee dan bana bir kahve ismarlayin ;)" width="20" height="20" /></a>
 <br>
 <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank"><img src="./img/TurkceWordle_32.png" alt="Freepik" width="20" height="20" /></a> Icon by Freepik</a>
+<br>
+<div ><button type="button" id="closeInfoButton" class="close-info">Play A New Game</button></div>
 `;
 
             document.body.append(infoBox);
+            infoBox.style.display="";
+            document.getElementById('closeInfoButton').addEventListener('click',()=>{
+                infoBox.classList.add('hidden');
+            })
         }
     },
     keyBoard: {
@@ -324,7 +330,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
 
             // SHIFT BUTTON ACKNOWLEDGE
             let acknowledge = document.createElement('span');
-            acknowledge.innerHTML = ` Turkce karakterler icin <button disabled> Shift </button> tusuna basili tutun.`;
+            acknowledge.innerHTML = ` <br>Turkce karakterler icin <button disabled> Shift </button> tusuna basili tutun.`;
             document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },

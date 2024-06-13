@@ -1,5 +1,15 @@
+*{box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.hidden{
+    display: none !important;
+}
 body {
     text-align: center;
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
 }
 .logoVersionTag{
     font-weight: bold;
@@ -16,9 +26,8 @@ body {
 font-size: 10px;
 }
 .game-board {
-    width: 40%;
-    height: 400px;
-    background-color: #f5f5f5;
+    width: 30vw;
+    height:55vh;
     margin: 10px auto 150px;
 }
 
@@ -30,9 +39,8 @@ font-size: 10px;
 }
 
 .keyboard {
-    width: 40%;
-    height: 10%;
-    background-color: #f5f5f5;
+    width: 30vw;
+    height: 10vw;
     margin: 10px auto;
 }
 
@@ -86,6 +94,7 @@ font-size: 10px;
     display: flex;
     flex-direction: row;
     border: 0;
+    justify-content: space-around; /* or space-between */
 }
 
 .game-board-col {
@@ -139,10 +148,18 @@ font-size: 10px;
     top: 30px;
     right: 0;
     display: block;
-    padding-top:0px;
+    padding-top:0;
+    text-align:left;
+    margin-right:20px;
 }
 .infoBox h5{
     font-weight:bold;
+}
+.close-info{
+    width:50vw;
+    margin: 20px auto;
+    display: none;
+    padding:20px;
 }
 .showTheMeaningDiv {
     text-align: left;
@@ -204,3 +221,53 @@ font-size: 10px;
     background-color: lightcoral;
 }
 
+@media screen and (max-width: 900px) {
+    .body{
+        padding:0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+    }
+    .versionTag{
+        box-sizing: border-box;
+        padding: 0;
+    }
+    .game-board {
+        width: 100vw;
+        height:55vh;
+        margin: 0;
+    }
+    .infoBox{
+        width: 100vw ;
+        height: 55vh ;
+        padding-left:20px;
+        background-color: white;
+        margin:0;
+    }
+    .close-info{
+        display: block;
+    }
+
+    .game-board-row {
+        display: flex;
+        flex-direction: row;
+        height: 16%;
+        justify-content: space-around; /* or space-between */
+        margin:0;
+    }
+    .game-board-col {
+        width: 22%; /* adjust as needed */
+        height: 100%;
+        border: 1px solid white;
+        box-sizing: border-box;
+        margin:0 ;
+    }
+    .letterInput {
+        font-size: 5vw !important;
+    }
+    .keyboard {
+        order: 2;
+        width:100%;
+        margin-top: 10px;
+    }
+}
