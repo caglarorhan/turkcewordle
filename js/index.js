@@ -4,7 +4,7 @@ document.title="Türkçe Wordle: Türkçe Kelime Tahmin Oyunu";
 const vSW = {
     name: 'TurkceWordle',
     writtenName:'Türkçe Wordle',
-    version:'2024.0.2',
+    version:'2024.0.3',
     author:'https://github.com/caglarorhan',
     dictionary:[],
     defaultLang:'tr',
@@ -169,7 +169,8 @@ const vSW = {
                     vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
-                        vSW.getTheMeaning(lastEnteredWord.join(''));
+                        let word = getTheMeaning(lastEnteredWord.join(''));
+                        vSW.showTheMeaning(word);
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
@@ -244,6 +245,13 @@ const vSW = {
             vSW.gameBoard.showInfo("SCORE",JSON.parse(window.localStorage.getItem(vSW.name)).score);
             document.querySelectorAll( `#${vSW.name}-keyboard button`).forEach(btn=>btn.setAttribute('disabled','disabled'));
             //console.log(`Kayit sonrasi data: ${JSON.stringify(playedGameLogs)}`);
+
+            // TODO: enter ve backspace tuslari double size dan normale donuyor onu duzeltelim
+
+            // TODO: Oyin kaybedildiyse saklanmis kelimeyi daha bariz gosterebiliriz.
+
+            // TODO: Oyun kazanildiysa gameboard alaninda konfeti atilabilir ve bilinen kelime bariz gosterilebilir.
+
         },
         showInfo:(header="Header",data)=>{
             let infoBox;
@@ -335,7 +343,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },
-    toastMessages:(dataObj={message:String, time:Number, type:String="message"})=>{
+    toastMessages:(dataObj={message:String, time:Number, type:String})=>{
         //alert(message);
         if(!document.querySelector('.toastContainer')){
             let toastContainer = document.createElement('div');
@@ -366,9 +374,8 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
                     //console.log(item.anlam);
                     vSW.meaningsOfWords[word].push(item.anlam.toString());
                 })
-                vSW.showTheMeaning(word)
+                return word;
             })
-
     },
     showTheMeaning:(word)=>{
         let theWordMeaningDiv;
