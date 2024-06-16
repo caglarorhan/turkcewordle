@@ -23,6 +23,7 @@ const vSW = {
                     vSW.keyBoard.setKeys();
                 })
                 vSW.gameBoard.setBoard();
+                vSW.largeMessageBox.create();
                 vSW.askedWordIndex = vSW.getRandomWordIndexFromDictionary();
                 vSW.gameBoard.showInfo("SKOR",JSON.parse(window.localStorage.getItem(vSW.name)).score);
 
@@ -140,7 +141,7 @@ const vSW = {
                 }
             }
         },
-        checkEnteredWord:()=>{
+        checkEnteredWord: async ()=>{
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
             if(vSW.gameBoard.guessedWords.length===0) return;
             let guessedWordsLength = vSW.gameBoard.guessedWords.length;
@@ -163,14 +164,18 @@ const vSW = {
                     letterCountMap[letter]=++letterCountMap[letter] || 1;
                 })
                 // console.log(JSON.stringify(letterCountMap))
+                // if word has already on the board
 
                 //if word guessed correctly
                 if(lastEnteredWord.join('')===askedWord){
                     vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
+                    //vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
+
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
-                        let word = getTheMeaning(lastEnteredWord.join(''));
-                        vSW.showTheMeaning(word);
+
+                        await vSW.getTheMeaning(lastEnteredWord.join(''));
+                        vSW.showTheMeaning(lastEnteredWord.join(''));
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
@@ -220,6 +225,7 @@ const vSW = {
                 Oyun bitti! Kaybettiniz!
                 Sorulan kelime: <b>${askedWord}</b>!
                 `});
+               // vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
                 document.querySelector(".infoBox").classList.remove("hidden");
             }
         },
@@ -343,6 +349,27 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
         }
     },
+    largeMessageBox:{
+        create(){
+            let largeMessage = document.createElement('div');
+            largeMessage.id = vSW.name + '_largeMessageBox';
+            largeMessage.classList.add('largeMessageBox');
+            document.body.appendChild(largeMessage);
+
+        },
+        showMessage(message={html:String, timeout: Number}){
+
+            let largeMessageBox = document.getElementById(vSW.name + '_largeMessageBox');
+            largeMessageBox.innerHTML=message.html;
+            largeMessageBox.style.display="block";
+
+            let largeMessageTimer = setTimeout(() =>{
+                largeMessageBox.style.display = 'none';
+            }, message.timeout)
+
+
+        }
+    },
     toastMessages:(dataObj={message:String, time:Number, type:String})=>{
         //alert(message);
         if(!document.querySelector('.toastContainer')){
@@ -363,19 +390,13 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             }
         }, 5*1000);
     },
-    getTheMeaning:(word)=>{
+    getTheMeaning: async (word)=>{
         vSW.meaningsOfWords[word]=[];
-        fetch('https://sozluk.gov.tr/gts?ara='+word)
-            .then(data=>{
-                return data.json()
-            })
-            .then(jsonData=>{
-                jsonData[0].anlamlarListe.forEach(item=>{
-                    //console.log(item.anlam);
+       let response = await  fetch('https://sozluk.gov.tr/gts?ara='+word)
+       let jsonData = await response.json();
+        jsonData[0].anlamlarListe.forEach(item=>{
                     vSW.meaningsOfWords[word].push(item.anlam.toString());
                 })
-                return word;
-            })
     },
     showTheMeaning:(word)=>{
         let theWordMeaningDiv;

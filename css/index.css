@@ -158,6 +158,9 @@ font-size: 10px;
 .infoBox h5{
     font-weight:bold;
 }
+.largeMessageBox{
+    display: none;
+}
 .close-info{
     width:50vw;
     margin: 20px auto;
@@ -242,16 +245,30 @@ font-size: 10px;
         margin: 0;
     }
     .infoBox{
+        box-sizing: border-box;
         width: 100vw ;
-        height: 55vh ;
+        height: 54vh ;
         padding-left:20px;
         background-color: white;
-        margin:0;
+        margin: -2px  0;
+        position: absolute;
+    }
+    .largeMessageBox{
+        display: none;
+        box-sizing: border-box;
+        width: 100vw ;
+        height: 54vh ;
+        padding-left:20px;
+        background-color: white;
+        margin: 25px  0;
+        position: absolute;
     }
     .close-info{
         display: block;
     }
-
+    .showTheMeaningDiv{
+        display: none;
+    }
     .game-board-row {
         display: flex;
         flex-direction: row;
