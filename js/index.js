@@ -1,4 +1,4 @@
-import {dictionary} from './dictionary.js';
+import {dictionary} from '../dictionaries/tr.js';
 document.body.innerHTML='';
 document.title="Türkçe Wordle: Türkçe Kelime Tahmin Oyunu";
 const vSW = {
@@ -141,7 +141,7 @@ const vSW = {
                 }
             }
         },
-        checkEnteredWord: async ()=>{
+        checkEnteredWord: ()=>{
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
             if(vSW.gameBoard.guessedWords.length===0) return;
             let guessedWordsLength = vSW.gameBoard.guessedWords.length;
@@ -168,14 +168,14 @@ const vSW = {
 
                 //if word guessed correctly
                 if(lastEnteredWord.join('')===askedWord){
-                    vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
-                    //vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
+                    //vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
+
+                    vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
 
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
 
-                        await vSW.getTheMeaning(lastEnteredWord.join(''));
-                        vSW.showTheMeaning(lastEnteredWord.join(''));
+                        vSW.getTheMeaning(lastEnteredWord.join(''));
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
@@ -364,7 +364,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             largeMessageBox.style.display="block";
 
             let largeMessageTimer = setTimeout(() =>{
-                largeMessageBox.style.display = 'none';
+              //  largeMessageBox.style.display = 'none';
             }, message.timeout)
 
 
@@ -390,13 +390,16 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             }
         }, 5*1000);
     },
-    getTheMeaning: async (word)=>{
+    getTheMeaning:  (word)=>{
         vSW.meaningsOfWords[word]=[];
-       let response = await  fetch('https://sozluk.gov.tr/gts?ara='+word)
-       let jsonData = await response.json();
-        jsonData[0].anlamlarListe.forEach(item=>{
-                    vSW.meaningsOfWords[word].push(item.anlam.toString());
-                })
+       fetch('https://sozluk.gov.tr/gts?ara='+word)
+           .then(response=>response.json())
+           .then(jsonData=>{
+               jsonData[0].anlamlarListe.forEach(item=>{
+                   vSW.meaningsOfWords[word].push(item.anlam.toString());
+               })
+           })
+
     },
     showTheMeaning:(word)=>{
         let theWordMeaningDiv;
