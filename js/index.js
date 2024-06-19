@@ -1,4 +1,4 @@
-import {dictionary} from '../dictionaries/tr.js';
+import {dictionary} from '../dictionaries/tr_TR.js';
 document.body.innerHTML='';
 document.title="Türkçe Wordle: Türkçe Kelime Tahmin Oyunu";
 const vSW = {
@@ -15,7 +15,8 @@ const vSW = {
     askedWordIndex:null,
     isSHIFTPressed:false,
     meaningsOfWords:Object.create(null),
-    init: () => {
+    init: async () => {
+        vSW.isLanguageSelected();
         vSW.dictionary = dictionary;
         vSW.gameBoard.create()
             .then(() => {
@@ -28,7 +29,50 @@ const vSW = {
                 vSW.gameBoard.showInfo("SKOR",JSON.parse(window.localStorage.getItem(vSW.name)).score);
 
             })
+    },
+    isLanguageSelected:()=>{
+        if(localStorage.getItem("selectedLanguage") && localStorage.getItem("selectedLanguage")!=="undefined"){
+            vSW.defaultLang = localStorage.getItem("selectedLanguage");
+        }else{
+            vSW.openLanguageSelectionDialog();
+        }
+    },
+    selectLanguage:(languageLocale)=>{
+        localStorage.setItem("selectedLanguage", languageLocale);
+        window.location.reload();
+    },
+    openLanguageSelectionDialog:()=>{
+        if(!document.getElementById('languageSelectionDialog')){
+            let newDialog = document.createElement('dialog');
+            newDialog.id = "languageSelectionDialog";
+            newDialog.innerHTML = `
+                                                    <button autofocus id="dialogCloseButton">Close</button>
+                                                    <p>Oyundaki kelimeler ve arayuz dili icin bir dil secmelisiniz!</p>
+                                                    <div>
+                                                    <label for="langSelection">Dil seciniz:</label><select name="langSelection" id="langSelection">
+                                                        <option >Lutfen Dil Seciniz</option>
+                                                        <option value="tr_TR">Turkce</option>
+                                                        <option value="en_US">English</option>
+                                                        <option value="es_ES">Español</option>
+                                                    </select>
+                                                    </div>
 
+                                                    `;
+            document.body.appendChild(newDialog);
+            document.querySelector("#dialogCloseButton").addEventListener("click",()=>{
+                newDialog.close();
+            })
+
+            document.querySelector("#langSelection").addEventListener("change",()=>{
+                if(document.querySelector("#langSelection").value){
+                    vSW.selectLanguage(document.querySelector("#langSelection").value);
+                    newDialog.close();
+                }
+
+            })
+
+        }
+        document.getElementById('languageSelectionDialog').showModal();
     },
     getRandomWordIndexFromDictionary: ()=>{
         return Math.floor(Math.random()*(vSW.dictionary.length-1));
@@ -287,7 +331,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
 <br>
 <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank"><img src="./img/TurkceWordle_32.png" alt="Freepik" width="20" height="20" /></a> Icon by Freepik</a>
 <br>
-<div ><button type="button" id="closeInfoButton" class="close-info">Play A New Game</button></div>
+<div ><button type="button" id="closeInfoButton" class="close-info">Yeni Oyun Baslat</button></div>
 `;
 
             document.body.append(infoBox);
@@ -444,6 +488,11 @@ window.addEventListener('load',()=>{
     document.body.insertAdjacentElement('afterbegin',versionTag);
     versionTag.appendChild(logo);
     versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.writtenName} <sup class="version">v.${vSW.version}</sup></span>`;
+    versionTag.innerHTML+=` <button class="settings" title="Open the settings"><img src="../img/settings.png" alt="Settings"> </button>`;
+    document.querySelector('.settings').addEventListener('click',()=>{
+        vSW.openLanguageSelectionDialog()
+    })
+
 });
 document.addEventListener("keydown", event => {
 
