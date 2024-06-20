@@ -2,14 +2,22 @@
     margin: 0;
     padding: 0;
 }
+:root {
+    --main-width: 30vw;
+    --main-width-900: 100vw;
+}
 .hidden{
     display: none !important;
 }
 body {
+    width: 100% !important;
     text-align: center;
     height: 100vh;
-    width: 100vw;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .logoVersionTag{
     font-weight: bold;
@@ -17,8 +25,9 @@ body {
     margin-left:10px;
 }
 .versionTag{
+    width: var(--main-width);
     display:flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 
 }
@@ -28,8 +37,11 @@ font-size: 10px;
 .settings{
  right:10px;
 }
+.settings:hover{
+    background-color: black;
+}
 .game-board {
-    width: 30vw;
+    width: var(--main-width);
     height:55vh;
     margin: 10px auto 150px;
 }
@@ -42,7 +54,7 @@ font-size: 10px;
 }
 
 .keyboard {
-    width: 30vw;
+    width: var(--main-width);
     height: 10vw;
     margin: 10px auto;
 }
@@ -265,10 +277,15 @@ dialog[open]::backdrop {
 }
 
 .settings{
-    margin-left:30px;
-    padding:3px;
-    border-radius: 5px;
+    margin-left:130px;
+    padding:2px;
+    border-radius: 50% !important;
     cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+.settings img{
+    width:16px;
 }
 
 @media screen and (max-width: 900px) {
@@ -277,20 +294,25 @@ dialog[open]::backdrop {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
     }
     .versionTag{
+        width:  var(--main-width-900);
         box-sizing: border-box;
         padding: 0;
+        display: flex;
     }
 
     .game-board {
-        width: 100vw;
+        width:  var(--main-width-900);
         height:55vh;
         margin: 0;
     }
     .infoBox{
         box-sizing: border-box;
-        width: 100vw ;
+        width:  var(--main-width-900);
         height: 54vh ;
         padding-left:20px;
         background-color: white;
@@ -300,7 +322,7 @@ dialog[open]::backdrop {
     .largeMessageBox{
         display: none;
         box-sizing: border-box;
-        width: 100vw ;
+        width:  var(--main-width-900);
         height: 54vh ;
         padding-left:20px;
         background-color: white;
@@ -335,11 +357,11 @@ dialog[open]::backdrop {
         width:100%;
         margin-top: 10px;
     }
-    .tr-char-info{
+    .lang-char-info{
         display: none;
     }
     .toastContainer{
-        width: 100vw;
+        width:  var(--main-width-900);
         bottom: 0;
         left: 0;
     }

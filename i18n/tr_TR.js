@@ -10,14 +10,13 @@ export default {
         'ö', 'p', 'r', 's', 'ş', 't',
         'u', 'ü', 'v', 'y', 'z'
     ],
-    langConvertMaps: {
-            tr:{u: 'ü', i: 'i', o: 'ö', c: 'ç', s: 'ş', g: 'ğ'}
-        },
+    langConvertMaps: {u: 'ü', i: 'i', o: 'ö', c: 'ç', s: 'ş', g: 'ğ'},
     wordMeaningQueryAPIURL:"https://sozluk.gov.tr/gts?ara=",
     titles_translations:{
         score: "SKOR",
         toastMessages:[
-            "Tahmin icin en az 5 harf girmelisiniz!",
+            "Tahmin icin en az",
+            "harf girmelisiniz!",
             "Bravo saklanan  kelimeyi buldunuz!",
             "Bu kelime sozlukte yer almiyor!",
             "Herhangi bir mesaj bulunamadi!",

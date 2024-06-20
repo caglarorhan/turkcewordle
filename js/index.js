@@ -1,23 +1,19 @@
-import {dictionary} from '../dictionaries/tr_TR.js';
 document.body.innerHTML='';
-document.title="Türkçe Wordle: Türkçe Kelime Tahmin Oyunu";
 const vSW = {
-    name: 'TurkceWordle',
-    writtenName:'Türkçe Wordle',
-    version:'2024.0.3',
+    version:'2024.1.0',
     author:'https://github.com/caglarorhan',
     dictionary:[],
-    defaultLang:'tr',
-    charSet:'a,b,c,ç,d,e,f,g,ğ,h,ı,i,j,k,l,m,n,o,ö,p,r,s,ş,t,u,ü,v,y,z'.split(','),
-    langConvertMaps: {
-        tr:{u: 'ü', i: 'i', o: 'ö', c: 'ç', s: 'ş', g: 'ğ'}
-    },
     askedWordIndex:null,
     isSHIFTPressed:false,
     meaningsOfWords:Object.create(null),
     init: async () => {
-        vSW.isLanguageSelected();
-        vSW.dictionary = dictionary;
+        if( vSW.isLanguageSelected()){
+            await vSW.importLanguageFiles();
+        }else{
+            vSW.openLanguageSelectionDialog();
+        }
+
+
         vSW.gameBoard.create()
             .then(() => {
                 vSW.keyBoard.create().then(() => {
@@ -25,21 +21,44 @@ const vSW = {
                 })
                 vSW.gameBoard.setBoard();
                 vSW.largeMessageBox.create();
-                vSW.askedWordIndex = vSW.getRandomWordIndexFromDictionary();
-                vSW.gameBoard.showInfo("SKOR",JSON.parse(window.localStorage.getItem(vSW.name)).score);
+                console.log("KAC KELIME VAR:"+vSW.dictionary.length);
+                vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
 
             })
     },
     isLanguageSelected:()=>{
-        if(localStorage.getItem("selectedLanguage") && localStorage.getItem("selectedLanguage")!=="undefined"){
-            vSW.defaultLang = localStorage.getItem("selectedLanguage");
-        }else{
-            vSW.openLanguageSelectionDialog();
-        }
+        return localStorage.getItem("selectedLanguage") && localStorage.getItem("selectedLanguage")!=="undefined"
     },
-    selectLanguage:(languageLocale)=>{
+    selectLanguage:async (languageLocale)=>{
         localStorage.setItem("selectedLanguage", languageLocale);
-        window.location.reload();
+       await vSW.importLanguageFiles();
+    },
+    importLanguageFiles: async ()=>{
+        let selectedLanguage = localStorage.getItem("selectedLanguage");
+        vSW.localeCode = selectedLanguage.split("_")[0];
+       await  import(`../i18n/${selectedLanguage}.js`)
+            .then( async (module)=>{
+            await vSW.loadVariablesFromLanguageFile(module);
+            //await vSW.gameBoard.reset();
+        })
+            .catch(error=>{
+                console.log(error);
+            })
+        import(`../dictionaries/${selectedLanguage}.js`)
+            .then(module => {
+                vSW.dictionary = module.dictionary;
+                vSW.gameBoard.reset();
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    },
+    loadVariablesFromLanguageFile: (module)=>{
+        Object.entries(module.default).forEach(([k,v])=>{
+                vSW[k] = v;
+        })
+        console.log(vSW);
+        console.log('Degiskenler set edildi!')
     },
     openLanguageSelectionDialog:()=>{
         if(!document.getElementById('languageSelectionDialog')){
@@ -91,6 +110,8 @@ const vSW = {
             });
         },
         reset:()=>{
+            // BUG: RESET cagrildigindaki scope icinde dictionary bos oluyor. ONEMLI !!!!!!!!!!
+            // TODO: Yukariyi oku
             vSW.gameBoard.guessedWords=[];
             vSW.askedWordIndex = vSW.getRandomWordIndexFromDictionary();
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
@@ -181,7 +202,7 @@ const vSW = {
                     //console.log(`All guessed words: ${vSW.gameBoard.guessedWords}`);
                     //console.log(`TargetLetterFromGuessedWord: ${targetLetterFromGuessedWord}`);
                     let inputIndex = (x*vSW.gameBoard.colCount)+y;
-                    theInputs[inputIndex].value=targetLetterFromGuessedWord.toLocaleUpperCase('tr');
+                    theInputs[inputIndex].value=targetLetterFromGuessedWord.toLocaleUpperCase(vSW.localeCode);
                 }
             }
         },
@@ -198,7 +219,7 @@ const vSW = {
             if(lastEnteredWord.length!==vSW.gameBoard.colCount){
                 //vSW.gameBoard.guessedWords.forEach(word=>console.log(word));
                 console.log(lastEnteredWord.length,vSW.gameBoard.colCount)
-                vSW.toastMessages({message:`Tahmin icin en az ${vSW.gameBoard.colCount} harf girmelisiniz!`, time:3, type:"info"});
+                vSW.toastMessages({message:`${vSW.titles_translations.toastMessages[0]} ${vSW.gameBoard.colCount} ${vSW.titles_translations.toastMessages[1]}`, time:3, type:"info"});
                 return;
             }
             if(lastEnteredWord.length===vSW.gameBoard.colCount){
@@ -214,7 +235,7 @@ const vSW = {
                 if(lastEnteredWord.join('')===askedWord){
                     //vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
 
-                    vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
+                    vSW.largeMessageBox.showMessage({html:vSW.titles_translations.toastMessages[2], timeout:5})
 
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
@@ -223,7 +244,7 @@ const vSW = {
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
-                        vSW.toastMessages({message:`Bu kelime sozlukte yok!`, time:3, type:"warning"});
+                        vSW.toastMessages({message:vSW.titles_translations.toastMessages[3], time:3, type:"warning"});
                         return;
                     }
 
@@ -274,10 +295,10 @@ const vSW = {
             }
         },
         keyboardKeyAddClass:(letter,newClassName, oldClassName)=>{
-            letter = letter.toLocaleUpperCase('tr');
+            letter = letter.toLocaleUpperCase(vSW.localeCode);
                 document.querySelector(`#${vSW.name}-keyboard button[data-letter-value='${letter}']`).classList.add(newClassName);
         },
-        endGame:(data={didWin:false, message:"Herhangi bir mesaj bulunamadi."})=>{
+        endGame:(data={didWin:false, message:vSW.titles_translations.toastMessages[4]})=>{
             let playedGameLogs=JSON.parse(window.localStorage.getItem(vSW.name));
             //console.log(`Kayit oncesi data: ${JSON.stringify(playedGameLogs)}`);
             let messageType = 'success';
@@ -320,18 +341,18 @@ const vSW = {
             })
             infoBox.innerHTML+=`<hr>
 <h5>Renk Bilgisi</h5>
-<div style="text-align: left;"><span class="correctLetterCorrectPlace correctLetterCorrectPlaceAdd"> </span> doğru harf, doğru yerde</div>
-<div style="text-align: left;"><span class="correctLetterWrongPlace correctLetterWrongPlaceAdd" "> </span> doğru harf, yanlış yerde</div>
-<div style="text-align: left;"><span class="wrongLetter wrongLetterAdd"> </span> yanlış harf</div>
+<div style="text-align: left;"><span class="correctLetterCorrectPlace correctLetterCorrectPlaceAdd"> </span> ${vSW.titles_translations.infoBoxMessages[0]}</div>
+<div style="text-align: left;"><span class="correctLetterWrongPlace correctLetterWrongPlaceAdd" "> </span> ${vSW.titles_translations.infoBoxMessages[1]}</div>
+<div style="text-align: left;"><span class="wrongLetter wrongLetterAdd"> </span> ${vSW.titles_translations.infoBoxMessages[2]}</div>
 <hr>
-Kodlayan: <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar Orhan</a>
+${vSW.titles_translations.infoBoxMessages[3]} <a href="${vSW.author}" target="_blank" rel="noopener noreferrer">Caglar Orhan</a>
 <br>
-Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://paypal.me/caglarorhan?country.x=US&locale.x=en_US" target="_blank"><img src="./img/paypal-mark-color.svg" alt="PayPal uzerinden bagis" width="20" height="20" /></a>  
-<a title="BuyMeACoffee dan bana bir kahve ismarlayin ;)" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="BuyMeACoffee dan bana bir kahve ismarlayin ;)" width="20" height="20" /></a>
+${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translations.infoBoxMessages[5]}" href="https://paypal.me/caglarorhan?country.x=US&locale.x=en_US" target="_blank"><img src="./img/paypal-mark-color.svg" alt="${vSW.titles_translations.infoBoxMessages[5]}" width="20" height="20" /></a>  
+<a title="${vSW.titles_translations.infoBoxMessages[6]}" href="https://www.buymeacoffee.com/caglarorhan" target="_blank"><img src="./img/bmc-icon.svg" alt="${vSW.titles_translations.infoBoxMessages[6]}" width="20" height="20" /></a>
 <br>
 <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="_blank"><img src="./img/TurkceWordle_32.png" alt="Freepik" width="20" height="20" /></a> Icon by Freepik</a>
 <br>
-<div ><button type="button" id="closeInfoButton" class="close-info">Yeni Oyun Baslat</button></div>
+<div ><button type="button" id="closeInfoButton" class="close-info">${vSW.titles_translations.infoBoxMessages[7]}</button></div>
 `;
 
             document.body.append(infoBox);
@@ -354,8 +375,8 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
         setKeys: () => {
             vSW.charSet.forEach(char=>{
                 const button = document.createElement('button');
-                button.innerHTML = char.toLocaleUpperCase('tr');
-                button.dataset.letterValue=char.toLocaleUpperCase('tr');
+                button.innerHTML = char.toLocaleUpperCase(vSW.localeCode);
+                button.dataset.letterValue=char.toLocaleUpperCase(vSW.localeCode);
                 button.classList.add("keyboard-button");
                 button.addEventListener('click', () => {
 
@@ -388,9 +409,13 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             document.getElementById(vSW.name + '-keyboard').appendChild(enterButton);
 
             // SHIFT BUTTON ACKNOWLEDGE
-            let acknowledge = document.createElement('span');
-            acknowledge.innerHTML = ` <span class="tr-char-info"><br>Turkce karakterler icin <button disabled> Shift </button> tusuna basili tutun.</span>`;
-            document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
+            console.log(Object.keys(vSW.langConvertMaps).length);
+            if(Object.keys(vSW.langConvertMaps).length > 0){
+                let acknowledge = document.createElement('span');
+                acknowledge.innerHTML = ` <span class="lang-char-info"><br>${vSW.titles_translations.shiftButtonMessages[0]} <button disabled> Shift </button> ${vSW.titles_translations.shiftButtonMessages[1]}.</span>`;
+                document.getElementById(vSW.name + '-keyboard').appendChild(acknowledge);
+            }
+
         }
     },
     largeMessageBox:{
@@ -454,7 +479,7 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
             theWordMeaningDiv.id = `${vSW.name}-meanings`;
         }
         theWordMeaningDiv.classList.add('showTheMeaningDiv');
-        theWordMeaningDiv.innerHTML=`<h4>${word.toLocaleUpperCase('tr')}</h4><ol>`;
+        theWordMeaningDiv.innerHTML=`<h4>${word.toLocaleUpperCase(vSW.localeCode)}</h4><ol>`;
         vSW.meaningsOfWords[word].forEach(anlam=>{
             theWordMeaningDiv.innerHTML+=`<li>${anlam}</li>`;
         });
@@ -476,8 +501,8 @@ Beni desteklemek icin: <a title="PayPal uzerinden bagis yapin" href="https://pay
     }
 }
 window.addEventListener('resize', vSW.hideTheMeaning);
-window.addEventListener('load',()=>{
-    vSW.init();
+window.addEventListener('load',async ()=>{
+    await vSW.init();
     document.body.classList.add('body');
     let logo = document.createElement('img');
     logo.src='./img/TurkceWordle_24.png';
@@ -497,12 +522,13 @@ window.addEventListener('load',()=>{
 document.addEventListener("keydown", event => {
 
     if(event.shiftKey && !vSW.isSHIFTPressed){
-        vSW.toastMessages({time:6, message: "SHIFT basikken ENG benzerine basin. Ornegin: Ğ icin G'ye basin, Ş icin S'ye", type:"info"});
-        [...Object.entries(vSW.langConvertMaps[vSW.defaultLang])].forEach(([srcChar, targetChar])=>{
-            targetChar = targetChar.toLocaleUpperCase('tr');
+        if(vSW.langConvertMaps.length>0) return;
+        vSW.toastMessages({time:6, message: vSW.titles_translations.shiftButtonMessages[2], type:"info"});
+        [...Object.entries(vSW.langConvertMaps)].forEach(([srcChar, targetChar])=>{
+            targetChar = targetChar.toLocaleUpperCase(vSW.localeCode);
             //console.log(srcChar, targetChar);
             document.querySelectorAll('[data-letter-value="'+targetChar+'"]').forEach(btn=>btn.classList.add('alternative'));
-            document.querySelectorAll('[data-letter-value="'+srcChar.toLocaleUpperCase('tr')+'"]').forEach(btn=>btn.classList.add('original'));
+            document.querySelectorAll('[data-letter-value="'+srcChar.toLocaleUpperCase(vSW.localeCode)+'"]').forEach(btn=>btn.classList.add('original'));
         });
         vSW.isSHIFTPressed=true;
         //console.log('SHIFT key basili:'+ vSW.isSHIFTPressed);
@@ -518,10 +544,10 @@ document.addEventListener("keydown", event => {
     if (/^[a-z]*$/gi.test(event.key) && event.key.length===1){
         if(vSW.isSHIFTPressed){
             //console.log('Shift key basiliyken tusa basildi. Basilan tus: '+event.key);
-            let realChar = vSW.langConvertMaps[vSW.defaultLang][event.key.toLocaleLowerCase('tr')] || event.key.toLocaleLowerCase('tr')
+            let realChar = vSW.langConvertMaps[event.key.toLocaleLowerCase(vSW.localeCode)] || event.key.toLocaleLowerCase(vSW.localeCode)
             vSW.gameBoard.addChar(realChar)
         }else{
-            vSW.gameBoard.addChar(event.key.toLocaleLowerCase('tr'));
+            vSW.gameBoard.addChar(event.key.toLocaleLowerCase(vSW.localeCode));
         }
     }
 });
