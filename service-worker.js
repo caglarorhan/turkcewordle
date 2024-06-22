@@ -1,24 +1,29 @@
 self.addEventListener('install', function(event) {
     event.waitUntil(
-        caches.open('my-cache').then(function(cache) {
+        caches.open('my-cache')
+            .then(function(cache) {
             return cache.addAll([
                 '/',
                 '/index.html',
                 '/css/index.css',
-                '/js/index.js',
-                '/img/TurkceWordle_256.png',
-                '/js/dictionary.js',
-                '/js/materialize.min.js',
-                '/css/materialize.min.css'
+                '/img/TurkceWordle_256.png'
             ]);
         })
     );
+    self.skipWaiting();
 });
 
 self.addEventListener('fetch', function(event) {
-    event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
-        })
-    );
+    // Check if the request is for the file you want to always fetch from the network
+    if (event.request.url.includes('i18n') || event.request.url.includes('dictionaries')) {
+        // Fetch the file from the network
+        event.respondWith(fetch(event.request));
+    } else {
+        // For other files, serve them from the cache
+        event.respondWith(
+            caches.match(event.request).then(function(response) {
+                return response || fetch(event.request);
+            })
+        );
+    }
 });

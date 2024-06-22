@@ -1,6 +1,5 @@
 export default {
-    localeCode: "de_DE", // Locale code changed to "de_DE" for German (DE)
-    name: "Wordle auf Deutsch", // Name changed to "Wordle auf Deutsch"
+    localeIdentifier: "de_DE", // Locale code changed to "de_DE" for German (DE)
     documentTitle: "Wordle auf Deutsch: Errate das Wort", // Document title translated
     writtenName: "Wordle auf Deutsch", // Written name translated
     charSet: [
@@ -9,17 +8,10 @@ export default {
         'u', 'ü', 'v', 'w', 'x', 'y', 'z'
     ], // Character set includes German accented characters
     langConvertMaps: {
-        de: { // Language code changed to "de" for German
-            u: 'ü', // 'ü' remains the same
-            i: 'ï', // 'ï' added for German
-            o: 'ö', // 'ö' translated to 'o'
-            c: 'ç', // 'ç' remains the same
-            s: 'ß', // 'ß' translated to 'ss'
-            g: 'ğ', // 'ğ' translated to 'g'
-            ä: 'ae', // 'ä' added for German
-            ö: 'oe', // 'ö' added for German
-            ü: 'ue', // 'ü' added for German
-        }
+            a:"ä",
+            o:"ö",
+            u:"ü",
+            s:"SS"
     },
     wordMeaningQueryAPIURL: "https://dict.leo.org/german/definition/", // API URL changed to German dictionary
     titles_translations: { // Title translations
@@ -40,7 +32,12 @@ export default {
             "Bestellen Sie mir einen Kaffee auf BuyMeACoffee ;)",
             "Neues Spiel starten",
         ],
-        shiftButtonMessages: ["Halten Sie die Taste gedrückt für deutsche Zeichen.", // Shift button messages translated
-            "Drücken Sie die entsprechende Taste in Englisch, während Sie die Umschalttaste gedrückt halten. Beispiel: Drücken Sie G für Ğ, S für Ş"]
+        shiftButtonMessages: ["Für deutsche Zeichen", "die Taste gedrückt halten.", "Drücken Sie die entsprechende englische Taste, während Sie SHIFT gedrückt halten. Zum Beispiel: Für Ä drücken Sie A"],
+        dialogBoxMessages:[
+            "Schließen",
+            "Bitte wähle eine Sprache für die Spieloberfläche und die Texte im Spiel aus.",
+            "Sprache auswählen:",
+            "Bitte wähle eine Sprache aus der folgenden Liste aus."
+        ]
     }
 }

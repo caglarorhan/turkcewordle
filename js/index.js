@@ -2,6 +2,9 @@ document.body.innerHTML='';
 const vSW = {
     version:'2024.1.0',
     author:'https://github.com/caglarorhan',
+    name:`WorldsWordle`,
+    defaultLanguage: "en_US",
+    languageList:[{localeCode: "en_US", name:"English"}],
     dictionary:[],
     askedWordIndex:null,
     isSHIFTPressed:false,
@@ -10,6 +13,7 @@ const vSW = {
         if( vSW.isLanguageSelected()){
             await vSW.importLanguageFiles();
         }else{
+            await vSW.importLanguageFiles();
             vSW.openLanguageSelectionDialog();
         }
 
@@ -35,6 +39,11 @@ const vSW = {
     },
     importLanguageFiles: async ()=>{
         let selectedLanguage = localStorage.getItem("selectedLanguage");
+        if(!selectedLanguage || selectedLanguage==="undefined"){
+            await vSW.selectLanguage(vSW.defaultLanguage);
+            selectedLanguage = vSW.defaultLanguage;
+        }
+
         vSW.localeCode = selectedLanguage.split("_")[0];
        await  import(`../i18n/${selectedLanguage}.js`)
             .then( async (module)=>{
@@ -44,7 +53,7 @@ const vSW = {
             .catch(error=>{
                 console.log(error);
             })
-        import(`../dictionaries/${selectedLanguage}.js`)
+       await import(`../dictionaries/${selectedLanguage}.js`)
             .then(module => {
                 vSW.dictionary = module.dictionary;
                 vSW.gameBoard.reset();
@@ -52,27 +61,47 @@ const vSW = {
             .catch(error => {
                 console.error(error);
             });
+       await import(`../language_list.js`)
+           .then((module) => {
+           vSW.languageList = module.languages;
+       }).catch(error => {
+           console.log(error);
+       })
     },
     loadVariablesFromLanguageFile: (module)=>{
         Object.entries(module.default).forEach(([k,v])=>{
                 vSW[k] = v;
         })
-        console.log(vSW);
-        console.log('Degiskenler set edildi!')
+        // console.log(vSW);
+        // console.log('Degiskenler set edildi!')
     },
     openLanguageSelectionDialog:()=>{
         if(!document.getElementById('languageSelectionDialog')){
             let newDialog = document.createElement('dialog');
             newDialog.id = "languageSelectionDialog";
+            let messages=[];
+            if(!vSW?.titles_translations?.dialogBoxMessages){
+                messages = [
+                    "Close",
+                    "Please select a language for the game interface and words in the game.",
+                    "Select a language:",
+                    "Please select a language from below",
+                ]
+            }else{
+                messages = vSW.titles_translations.dialogBoxMessages;
+            }
+
+            let languageOptions = vSW.languageList.reduce((acc, language) => {
+                return acc + `<option value="${language.localeCode}">${language.name}</option>`;
+            }, "");
+
             newDialog.innerHTML = `
-                                                    <button autofocus id="dialogCloseButton">Close</button>
-                                                    <p>Oyundaki kelimeler ve arayuz dili icin bir dil secmelisiniz!</p>
+                                                    <button autofocus id="dialogCloseButton">${messages[0]}</button>
+                                                    <p>${messages[1]}</p>
                                                     <div>
-                                                    <label for="langSelection">Dil seciniz:</label><select name="langSelection" id="langSelection">
-                                                        <option >Lutfen Dil Seciniz</option>
-                                                        <option value="tr_TR">Turkce</option>
-                                                        <option value="en_US">English</option>
-                                                        <option value="es_ES">Español</option>
+                                                    <label for="langSelection">${messages[2]}</label><select name="langSelection" id="langSelection">
+                                                        <option >${messages[3]}</option>
+                                                        ${languageOptions}
                                                     </select>
                                                     </div>
 

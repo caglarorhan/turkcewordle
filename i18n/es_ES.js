@@ -1,6 +1,5 @@
 export default {
-    localeCode: "es", // Locale code changed to "es_ES" for Spanish (ES)
-    name: "Wordle en Español", // Name changed to "Wordle en Español"
+    localeIdentifier: "es_ES", // Locale code changed to "es_ES" for Spanish (ES)
     documentTitle: "Wordle en Español: Adivina la palabra", // Document title translated
     writtenName: "Wordle en Español", // Written name translated
     charSet: [
@@ -9,7 +8,12 @@ export default {
         'ş', 't', 'u', 'ú', 'v', 'w', 'x', 'y', 'z'
     ], // Character set includes Spanish accented characters
     langConvertMaps: {
-            n:"ñ"
+            n:"ñ",
+            a:"á",
+            e:"é",
+            i:"í",
+            o:"ó",
+            u:"ú"
     },
     wordMeaningQueryAPIURL: "https://dle.rae.es/?w=", // API URL changed to Spanish dictionary
     titles_translations: { // Title translations
@@ -31,6 +35,12 @@ export default {
             "Iniciar nuevo juego",
         ],
         shiftButtonMessages: ["Mantén presionado ", "para caracteres en español.",
-            "Presiona la tecla equivalente en inglés mientras presionas SHIFT. Ejemplo: Presiona G para Ğ, S para Ş"]
+            "Presiona la tecla equivalente en inglés mientras presionas SHIFT. Ejemplo: Presiona G para Ğ, S para Ş"],
+        dialogBoxMessages:[
+            "Cerrar",
+            "Por favor, selecciona un idioma para la interfaz y los textos del juego.",
+            "Elige un idioma:",
+            "Selecciona un idioma de abajo."
+        ]
     }
 }

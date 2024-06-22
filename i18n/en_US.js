@@ -1,6 +1,5 @@
 export default {
-    localeCode: "en", // Locale code changed to "en" for English (US)
-    name: "EnglishWordle", // Name changed to "EnglishWordle"
+    localeIdentifier: "en_US", // Locale code changed to "en" for English (US)
     documentTitle: "English Wordle: Guess the English Word", // Document title translated
     writtenName: "English Wordle", // Written name translated
     charSet: [
@@ -31,6 +30,12 @@ export default {
             "Start New Game",
         ],
         shiftButtonMessages: ["Hold down the."," button for English characters",
-            "ENGLISH characters does not need to hold SHIFT."]
-    }
+            "ENGLISH characters does not need to hold SHIFT."],
+        dialogBoxMessages:[
+            "Close",
+            "Please select a language for the game interface and words in the game.",
+            "Select a language:",
+            "Please select a language from below",
+        ]
+    },
 }

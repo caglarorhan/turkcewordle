@@ -1,6 +1,5 @@
 export default {
-    localeCode:"tr",
-    name: "TurkceWordle",
+    localeIdentifier:"tr_TR",
     documentTitle:"Türkçe Wordle: Türkçe Kelime Tahmin Oyunu",
     writtenName:"Türkçe Wordle",
     charSet:[
@@ -31,6 +30,12 @@ export default {
             "BuyMeACoffee dan bana bir kahve ismarlayin ;)",
             "Yeni Oyun Baslat",
         ],
-        shiftButtonMessages:["Turkce karakterler icin","tusuna basili tutun.","SHIFT basikken ENG benzerine basin. Ornegin: Ğ icin G'ye basin, Ş icin S'ye"]
+        shiftButtonMessages:["Turkce karakterler icin","tusuna basili tutun.","SHIFT basikken ENG benzerine basin. Ornegin: Ğ icin G'ye basin, Ş icin S'ye"],
+        dialogBoxMessages:[
+            "Kapat",
+            "Oyundaki kelimeler ve arayuz dili icin bir dil secmelisiniz!",
+            "Dil seciniz:",
+            "Lutfen Asagidaki dillerden birisini seciniz",
+        ]
     }
 }
