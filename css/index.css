@@ -287,14 +287,26 @@ dialog[open]::backdrop {
 .settings img{
     width:16px;
 }
-
+@keyframes slideOutBottom {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(500%);
+        opacity: 0;
+    }
+}
 @media screen and (max-width: 900px) {
+    :root {
+        --versionTagHeight: 54px;
+    }
     .body{
         padding:0;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
 
     }
@@ -303,6 +315,10 @@ dialog[open]::backdrop {
         box-sizing: border-box;
         padding: 0;
         display: flex;
+        height: var(--versionTagHeight);
+    }
+    .settings{
+        margin: 0;
     }
 
     .game-board {
@@ -313,10 +329,10 @@ dialog[open]::backdrop {
     .infoBox{
         box-sizing: border-box;
         width:  var(--main-width-900);
-        height: 54vh ;
+        height: 55vh ;
         padding-left:20px;
         background-color: white;
-        margin: -3px  0;
+        margin: 12px  0;
         position: absolute;
     }
     .largeMessageBox{
@@ -362,11 +378,15 @@ dialog[open]::backdrop {
     }
     .toastContainer{
         width:  var(--main-width-900);
+        padding-top: var(--versionTagHeight);
         bottom: 0;
         left: 0;
+        justify-content: flex-start;
+        flex-direction: column;
     }
     .toast{
         margin-bottom:20px;
+        animation: slideOutBottom 5s forwards;
     }
     .bravoMessage {
         color: #ff6347; /* Tomato color text */

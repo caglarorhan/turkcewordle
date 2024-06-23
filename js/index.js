@@ -99,7 +99,8 @@ const vSW = {
                                                     <button autofocus id="dialogCloseButton">${messages[0]}</button>
                                                     <p>${messages[1]}</p>
                                                     <div>
-                                                    <label for="langSelection">${messages[2]}</label><select name="langSelection" id="langSelection">
+                                                    <label for="langSelection">${messages[2]}</label>
+                                                    <select name="langSelection" id="langSelection">
                                                         <option >${messages[3]}</option>
                                                         ${languageOptions}
                                                     </select>
@@ -114,7 +115,9 @@ const vSW = {
             document.querySelector("#langSelection").addEventListener("change",()=>{
                 if(document.querySelector("#langSelection").value){
                     vSW.selectLanguage(document.querySelector("#langSelection").value);
+                    console.log('Dil secildi simdi oyun UI in  resetlenmesi gerekiyor.')
                     newDialog.close();
+                    window.location.reload();
                 }
 
             })
@@ -184,7 +187,7 @@ const vSW = {
                     if(vSW.gameBoard.guessedWords[parseInt(srcItem.dataset.rowNo)]){
                         let focusedGuessedWord = vSW.gameBoard.guessedWords[parseInt(srcItem.dataset.rowNo)].join('');
                         if(focusedGuessedWord.length>0 && vSW.dictionary.includes(focusedGuessedWord)){
-                            vSW.showTheMeaning(focusedGuessedWord);
+                            //vSW.showTheMeaning(focusedGuessedWord);
                         }
                     }
                 })
@@ -269,7 +272,7 @@ const vSW = {
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
 
-                        vSW.getTheMeaning(lastEnteredWord.join(''));
+                        //vSW.getTheMeaning(lastEnteredWord.join(''));
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
@@ -342,7 +345,7 @@ const vSW = {
                 setTimeout(vSW.gameBoard.reset,2000);
             }
             vSW.toastMessages({message:data.message.toString(), time:5, type:messageType});
-            vSW.gameBoard.showInfo("SCORE",JSON.parse(window.localStorage.getItem(vSW.name)).score);
+            vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
             document.querySelectorAll( `#${vSW.name}-keyboard button`).forEach(btn=>btn.setAttribute('disabled','disabled'));
             //console.log(`Kayit sonrasi data: ${JSON.stringify(playedGameLogs)}`);
 
@@ -462,7 +465,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             largeMessageBox.style.display="block";
 
             let largeMessageTimer = setTimeout(() =>{
-              //  largeMessageBox.style.display = 'none';
+               largeMessageBox.style.display = 'none';
             }, message.timeout)
 
 
