@@ -293,8 +293,8 @@ dialog[open]::backdrop {
         opacity: 1;
     }
     100% {
-        transform: translateY(500%);
-        opacity: 0;
+        transform: translateY(100vw);
+        opacity: 0.6;
     }
 }
 @media screen and (max-width: 900px) {
@@ -386,7 +386,7 @@ dialog[open]::backdrop {
     }
     .toast{
         margin-bottom:20px;
-        animation: slideOutBottom 5s forwards;
+        animation: slideOutBottom 4s forwards;
     }
     .bravoMessage {
         color: #ff6347; /* Tomato color text */
