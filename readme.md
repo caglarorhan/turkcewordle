@@ -47,6 +47,54 @@ Contributions are welcome! If you'd like to contribute to the project, please fo
 4. Push to the branch (`git push origin feature/improvement`).
 5. Create a new Pull Request.
 
+## i18n Support and Contribution
+
+If you would like to contribute to the game by adding support for additional languages, you can follow these steps:
+There are two files to change the language of the game. Firs one is a dictionary file paced in the **dictionaries** folder. 
+Second file is a translation file for titles and messages on the game. This translation file is places in the **i18n** folder.
+Both of these file's names are language and country code's short form. For example, for English, it is en_US. For Turkish, it is tr_TR. For Spanish is es_ES. Both files are importing to the main index.js file dynamically.
+
+### Dictionary File
+This file includes an Array and export it as constant name _**dictionary**_ . The only changing parts are the words inside the array. This array is standard javascript array. Comma separated double-quoted strings.
+
+Sample structure: 
+
+`export const dictionary = ["abacı", "abadi"]`
+
+
+### Translation File
+This file is a javascript object. It includes key-value pairs. Key is the name of the message or title. Value is the translation of the message or title. Please choose the English one (en_US.js) and translate as is to your language. 
+When translating understand the charSet of the target language and similar letter shift options (if the target language has ones). Checkout **langConvertMaps** key.
+`
+
+    langConvertMaps: {
+            n:"ñ",
+            a:"á",
+            e:"é",
+            i:"í",
+            o:"ó",
+            u:"ú"
+    },
+`
+
+For example Spanish has "n" and "ñ" letters which looks similar. Shit option is for users whom use their own keywboards that doesn't support these language specific letters.
+Just watch out the order of the messages. It should be the same as the English one. 
+
+Sample general structure:
+
+    localeIdentifier: "en_US", // Locale code changed to "en" for English (US)
+    documentTitle: "English Wordle: Guess the English Word", // Document title translated
+    writtenName: "English Wordle", // Written name translated
+    charSet: [
+        'a', 'b', 'c', 'd', 'e', 'f',
+        'g', 'h', 'i', 'j', 'k', 'l',
+        'm', 'n', 'o', 'p', 'q', 'r',
+        's', 't', 'u', 'v', 'w', 'x',
+        'y', 'z'
+    ],`
+`
+
+
 ## Credits
 
 This game was created by **Caglar Orhan** and is licensed under the [MIT License](LICENSE).
