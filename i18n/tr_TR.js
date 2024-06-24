@@ -36,6 +36,7 @@ export default {
             "Oyundaki kelimeler ve arayuz dili icin bir dil secmelisiniz!",
             "Dil seciniz:",
             "Lutfen Asagidaki dillerden birisini seciniz",
-        ]
+        ],
+        largeMessageBoxMessages:["Bravvvoooooooooooooooo, sorulan kelimeyi buldunuz! Kelime: ","Oyun bitti! Maalesef kaybettiniz!. Sorulan kelime:"]
     }
 }

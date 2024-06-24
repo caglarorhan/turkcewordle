@@ -265,9 +265,9 @@ const vSW = {
 
                 //if word guessed correctly
                 if(lastEnteredWord.join('')===askedWord){
-                    //vSW.gameBoard.endGame({didWin:true, message:"Bravvo... Sorulan kelimeyi buldunuz!"});
+                    vSW.gameBoard.endGame({didWin:true, message:`${vSW.titles_translations.largeMessageBoxMessages[0]} <span class="askedWord">${askedWord}</span>!`});
 
-                    vSW.largeMessageBox.showMessage({html:vSW.titles_translations.toastMessages[2], timeout:5})
+                   // vSW.largeMessageBox.showMessage({html:vSW.titles_translations.toastMessages[2], timeout:5})
 
                 }else{
                     if(vSW.dictionary.includes(lastEnteredWord.join(''))){
@@ -276,7 +276,7 @@ const vSW = {
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
-                        vSW.toastMessages({message:vSW.titles_translations.toastMessages[2], time:3, type:"warning"});
+                        vSW.toastMessages({message:vSW.titles_translations.toastMessages[3], time:3, type:"warning"});
                         return;
                     }
 
@@ -319,8 +319,7 @@ const vSW = {
             if (vSW.gameBoard.guessedWords.length-1 === vSW.gameBoard.rowCount) {
                 let askedWord = vSW.dictionary[vSW.askedWordIndex];
                 vSW.gameBoard.endGame({didWin:false, message:`
-                Oyun bitti! Kaybettiniz!
-                Sorulan kelime: <b>${askedWord}</b>!
+                ${vSW.titles_translations.largeMessageBoxMessages[1]} <span class="askedWord">${askedWord}</span>!
                 `});
                // vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
                 document.querySelector(".infoBox").classList.remove("hidden");
@@ -463,10 +462,13 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             let largeMessageBox = document.getElementById(vSW.name + '_largeMessageBox');
             largeMessageBox.innerHTML=message.html;
             largeMessageBox.style.display="block";
+            largeMessageBox.classList.add('glowing');
+
 
             let largeMessageTimer = setTimeout(() =>{
                largeMessageBox.style.display = 'none';
-            }, message.timeout)
+               largeMessageBox.remove();
+            }, message.timeout*1000)
 
 
         }

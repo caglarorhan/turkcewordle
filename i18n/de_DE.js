@@ -17,7 +17,8 @@ export default {
     titles_translations: { // Title translations
         score: "PUNKTESTAND", // Score translated
         toastMessages: [
-            "Du musst mindestens 5 Buchstaben eingeben, um zu raten!", // Toast messages translated
+            "Du musst mindestens",
+            "Buchstaben eingeben, um zu raten!",
             "Herzlichen Glückwunsch! Du hast das versteckte Wort gefunden!",
             "Dieses Wort ist nicht im Wörterbuch enthalten!",
             "Es wurden keine Nachrichten gefunden!",
@@ -38,6 +39,7 @@ export default {
             "Bitte wähle eine Sprache für die Spieloberfläche und die Texte im Spiel aus.",
             "Sprache auswählen:",
             "Bitte wähle eine Sprache aus der folgenden Liste aus."
-        ]
+        ],
+        largeMessageBoxMessages:["Bravvvoooooooooooooooo, sorulan kelimeyi buldunuz! Kelime: ","Oyun bitti! Maalesef kaybettiniz!. Sorulan kelime:"]
     }
 }

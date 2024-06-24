@@ -14,7 +14,8 @@ export default {
     titles_translations: { // Title translations
         score: "SCORE", // Score translated
         toastMessages: [
-            "You must enter at least 5 letters to guess!", // Toast messages translated
+            "You must enter at least",
+            "letters to guess!", // Toast messages translated
             "Congratulations! You found the hidden word!",
             "This word is not found in the dictionary!",
             "No messages found!",
@@ -36,6 +37,7 @@ export default {
             "Please select a language for the game interface and words in the game.",
             "Select a language:",
             "Please select a language from below",
-        ]
-    },
+        ],
+        largeMessageBoxMessages:["Bravvvoooooooooooooooo, sorulan kelimeyi buldunuz! Kelime: ","Oyun bitti! Maalesef kaybettiniz!. Sorulan kelime:"]
+    }
 }

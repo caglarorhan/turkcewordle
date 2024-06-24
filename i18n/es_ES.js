@@ -19,7 +19,8 @@ export default {
     titles_translations: { // Title translations
         score: "PUNTUACIÓN", // Score translated
         toastMessages: [
-            "¡Debes ingresar al menos 5 letras para adivinar!", // Toast messages translated
+            "¡Debes ingresar al menos,",
+            " letras para adivinar!", // Toast messages translated
             "¡Felicidades! ¡Has encontrado la palabra oculta!",
             "¡Esta palabra no se encuentra en el diccionario!",
             "¡No se encontraron mensajes!",
@@ -41,6 +42,7 @@ export default {
             "Por favor, selecciona un idioma para la interfaz y los textos del juego.",
             "Elige un idioma:",
             "Selecciona un idioma de abajo."
-        ]
+        ],
+        largeMessageBoxMessages:["Bravvvoooooooooooooooo, sorulan kelimeyi buldunuz! Kelime: ","Oyun bitti! Maalesef kaybettiniz!. Sorulan kelime:"]
     }
 }

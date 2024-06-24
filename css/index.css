@@ -388,14 +388,20 @@ dialog[open]::backdrop {
         margin-bottom:20px;
         animation: slideOutBottom 4s forwards;
     }
-    .bravoMessage {
-        color: #ff6347; /* Tomato color text */
-        font-size: 2em; /* 2 times larger than the normal text */
-        text-align: center; /* Center the text */
-        padding: 20px; /* Add some padding */
-        border: 2px solid #ff6347; /* Tomato color border */
-        border-radius: 10px; /* Rounded corners */
-        background-color: #fff8dc; /* Cornsilk background color */
-        box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Slight shadow for depth perception */
+    .askedWord{
+        font-size: 3vw;
+        font-weight: bold;
+    }
+
+    @keyframes glowing {
+        0% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000; }
+        50% { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 40px #ff0000; }
+        100% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000; }
+    }
+
+    .glowing {
+        font-size: 2em; /* Adjust the font size as needed */
+        color: #ffffff;
+        animation: glowing 1s linear infinite;
     }
 }
