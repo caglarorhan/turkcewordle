@@ -223,6 +223,7 @@ const vSW = {
         },
         placeWordsToBoard: () => {
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
+            document.querySelectorAll('.flip-animation').forEach(pDiv=>pDiv.classList.remove('flip-animation'));
             theInputs.forEach(i=>{
                 i.value='';
             });
@@ -235,8 +236,11 @@ const vSW = {
                     //console.log(`TargetLetterFromGuessedWord: ${targetLetterFromGuessedWord}`);
                     let inputIndex = (x*vSW.gameBoard.colCount)+y;
                     theInputs[inputIndex].value=targetLetterFromGuessedWord.toLocaleUpperCase(vSW.localeCode);
+                    theInputs[inputIndex].parentNode.classList.add('flip-animation')
                 }
             }
+
+           // TODO: Buraya animasyon koyulacak
         },
         checkEnteredWord: ()=>{
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
@@ -410,7 +414,6 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
                 button.dataset.letterValue=char.toLocaleUpperCase(vSW.localeCode);
                 button.classList.add("keyboard-button");
                 button.addEventListener('click', () => {
-
                     vSW.gameBoard.addChar(char);
                 });
                 document.getElementById(vSW.name + '-keyboard').appendChild(button);
