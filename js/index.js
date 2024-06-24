@@ -276,7 +276,7 @@ const vSW = {
                         let newWord = [];
                         vSW.gameBoard.guessedWords.push(newWord);
                     }else{
-                        vSW.toastMessages({message:vSW.titles_translations.toastMessages[3], time:3, type:"warning"});
+                        vSW.toastMessages({message:vSW.titles_translations.toastMessages[2], time:3, type:"warning"});
                         return;
                     }
 

@@ -32,7 +32,7 @@ export default {
             "Bestellen Sie mir einen Kaffee auf BuyMeACoffee ;)",
             "Neues Spiel starten",
         ],
-        shiftButtonMessages: ["Für deutsche Zeichen", "die Taste gedrückt halten.", "Drücken Sie die entsprechende englische Taste, während Sie SHIFT gedrückt halten. Zum Beispiel: Für Ä drücken Sie A"],
+        shiftButtonMessages: ["Für deutsche Zeichen", "die Taste gedrückt halten.", "Drücken Sie die entsprechende DeutcheTaste, während Sie SHIFT gedrückt halten. Zum Beispiel: Für Ä drücken Sie A"],
         dialogBoxMessages:[
             "Schließen",
             "Bitte wähle eine Sprache für die Spieloberfläche und die Texte im Spiel aus.",
