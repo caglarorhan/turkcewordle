@@ -25,7 +25,6 @@ const vSW = {
                 })
                 vSW.gameBoard.setBoard();
                 vSW.largeMessageBox.create();
-                console.log("KAC KELIME VAR:"+vSW.dictionary.length);
                 vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
 
             })
@@ -209,21 +208,40 @@ const vSW = {
             }
         },
         addChar: (char) => {
+            let newLetterIndex;
+            let lastGuessedWordIndex = vSW.gameBoard.guessedWords.length - 1;
             if (!vSW.gameBoard.guessedWords.length) {
                 let newWord = [];
                 newWord.push(char);
                 vSW.gameBoard.guessedWords.push(newWord);
+                newLetterIndex=0;
             } else {
-                let lastGuessedWordIndex = vSW.gameBoard.guessedWords.length - 1
                 if (vSW.gameBoard.guessedWords[lastGuessedWordIndex].length < vSW.gameBoard.colCount) {
                     vSW.gameBoard.guessedWords[lastGuessedWordIndex].push(char);
+                    newLetterIndex = vSW.gameBoard.guessedWords[lastGuessedWordIndex].length - 1;
+                }else{
+                    return;
                 }
             }
-            vSW.gameBoard.placeWordsToBoard();
+
+            let inputIndex = (vSW.gameBoard.guessedWords.length-1) * vSW.gameBoard.colCount + newLetterIndex;
+
+            let theInputs = document.querySelectorAll(`#${vSW.name} input`);
+            let newInput = theInputs[inputIndex];
+            let parentDiv = newInput.parentElement;
+
+            parentDiv.classList.add('flip-animation');
+
+            setTimeout(() => {
+                parentDiv.classList.remove('flip-animation');
+            }, 1000);
+
+            newInput.value = char.toLocaleUpperCase(vSW.localeCode);
+
         },
         placeWordsToBoard: () => {
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
-            document.querySelectorAll('.flip-animation').forEach(pDiv=>pDiv.classList.remove('flip-animation'));
+          //document.querySelectorAll('.flip-animation').forEach(pDiv=>pDiv.classList.remove('flip-animation'));
             theInputs.forEach(i=>{
                 i.value='';
             });
@@ -236,7 +254,6 @@ const vSW = {
                     //console.log(`TargetLetterFromGuessedWord: ${targetLetterFromGuessedWord}`);
                     let inputIndex = (x*vSW.gameBoard.colCount)+y;
                     theInputs[inputIndex].value=targetLetterFromGuessedWord.toLocaleUpperCase(vSW.localeCode);
-                    theInputs[inputIndex].parentNode.classList.add('flip-animation')
                 }
             }
 
@@ -443,7 +460,6 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             document.getElementById(vSW.name + '-keyboard').appendChild(enterButton);
 
             // SHIFT BUTTON ACKNOWLEDGE
-            console.log(Object.keys(vSW.langConvertMaps).length);
             if(Object.keys(vSW.langConvertMaps).length > 0){
                 let acknowledge = document.createElement('span');
                 acknowledge.innerHTML = ` <span class="lang-char-info"><br>${vSW.titles_translations.shiftButtonMessages[0]} <button disabled> Shift </button> ${vSW.titles_translations.shiftButtonMessages[1]}.</span>`;
