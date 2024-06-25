@@ -30,7 +30,7 @@ export default {
             "BuyMeACoffee dan bana bir kahve ismarlayin ;)",
             "Yeni Oyun Baslat",
         ],
-        shiftButtonMessages:["Turkce karakterler icin","tusuna basili tutun.","SHIFT basikken ENG benzerine basin. Ornegin: Ğ icin G'ye basin, Ş icin S'ye"],
+        shiftButtonMessages:["Türkçe karakterler icin","tusuna basili tutun.","SHIFT basikken ENG benzerine basin. Ornegin: Ğ icin G'ye basin, Ş icin S'ye"],
         dialogBoxMessages:[
             "Kapat",
             "Oyundaki kelimeler ve arayuz dili icin bir dil secmelisiniz!",
