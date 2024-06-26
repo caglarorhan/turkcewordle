@@ -111,11 +111,11 @@ Sample general structure:
 
 ## Credits
 
-This game was created by **Caglar Orhan** and is licensed under the [MIT License](LICENSE).
+This game was created by **Caglar Orhan** and is licensed under the [MIT License](LICENSE.txt).
 
 ## License
 
-Turkish Word Guess Game is open-source and licensed under the [MIT License](LICENSE).
+Turkish Word Guess Game is open-source and licensed under the [MIT License](LICENSE.txt).
 
 ---
 

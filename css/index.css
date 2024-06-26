@@ -176,6 +176,34 @@ font-size: 10px;
 }
 .largeMessageBox{
     display: none;
+    top:46px;
+    box-sizing: border-box;
+    width:  var(--main-width);
+    height: 66vh ;
+    padding: 40px 20px;
+    background-color: white;
+    position: absolute;
+    font-size: 20px; !important;
+}
+.largeMessageBox .askedWord{
+    font-size: 30px;
+    font-weight: bold;
+    color: red;
+}
+.largeMessageBox p{
+    color: blue;
+    padding-top:30px;
+    font-size: 20px;
+}
+.largeMessageBox ul{
+    text-align: left;
+    padding-left: 20px; /* Add some padding to lists */
+    list-style-type: disc; /* Use disc as list style */
+}
+.largeMessageBox ul li{
+    text-align: left;
+    margin-bottom: 10px; /* Add some space below each list item */
+    color: #007BFF; /* Style list items */
 }
 .close-info{
     width:50vw;
@@ -344,13 +372,12 @@ dialog[open]::backdrop {
         position: absolute;
     }
     .largeMessageBox{
-        display: none;
+        top: 30px;
         box-sizing: border-box;
         width:  var(--main-width-900);
         height: 54vh ;
-        padding-left:20px;
+        padding:20px;
         background-color: white;
-        margin: 25px  0;
         position: absolute;
     }
     .close-info{

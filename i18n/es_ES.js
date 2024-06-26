@@ -15,7 +15,7 @@ export default {
             o:"ó",
             u:"ú"
     },
-    wordMeaningQueryAPIURL: "https://dle.rae.es/?w=", // API URL changed to Spanish dictionary
+    wordMeaningQueryAPIURL: null,
     titles_translations: { // Title translations
         score: "PUNTUACIÓN", // Score translated
         toastMessages: [

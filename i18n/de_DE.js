@@ -13,7 +13,7 @@ export default {
             u:"ü",
             s:"SS"
     },
-    wordMeaningQueryAPIURL: "https://dict.leo.org/german/definition/", // API URL changed to German dictionary
+    wordMeaningQueryAPIURL: null,
     titles_translations: { // Title translations
         score: "PUNKTESTAND", // Score translated
         toastMessages: [

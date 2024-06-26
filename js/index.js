@@ -141,8 +141,6 @@ const vSW = {
             });
         },
         reset:()=>{
-            // BUG: RESET cagrildigindaki scope icinde dictionary bos oluyor. ONEMLI !!!!!!!!!!
-            // TODO: Yukariyi oku
             vSW.gameBoard.guessedWords=[];
             vSW.askedWordIndex = vSW.getRandomWordIndexFromDictionary();
             let theInputs = document.querySelectorAll(`#${vSW.name} input`);
@@ -154,8 +152,10 @@ const vSW = {
             });
             document.querySelectorAll( `#${vSW.name}-keyboard button`).forEach(btn=>{
                 btn.disabled=false;
-                btn.classList.remove(...btn.classList)
-                btn.classList.add("keyboard-button");
+                if(!btn.id.includes('enter-button') &&  !btn.id.includes('delete-button')){
+                    btn.classList.remove(...btn.classList)
+                    btn.classList.add("keyboard-button");
+                }
             })
 
             vSW.hideTheMeaning();
@@ -343,29 +343,37 @@ const vSW = {
                 ${vSW.titles_translations.largeMessageBoxMessages[1]} <span class="askedWord">${askedWord}</span>!
                 `});
                // vSW.largeMessageBox.showMessage({html:`Bravo kelimeyi buldunuz!`, timeout:5})
-                document.querySelector(".infoBox").classList.remove("hidden");
+                //document.querySelector(".infoBox").classList.remove("hidden");
             }
         },
         keyboardKeyAddClass:(letter,newClassName, oldClassName)=>{
             letter = letter.toLocaleUpperCase(vSW.localeCode);
                 document.querySelector(`#${vSW.name}-keyboard button[data-letter-value='${letter}']`).classList.add(newClassName);
         },
-        endGame:(data={didWin:false, message:vSW.titles_translations.toastMessages[4]})=>{
+        endGame: async (data={didWin:false, message:vSW.titles_translations.toastMessages[4]})=>{
             let playedGameLogs=JSON.parse(window.localStorage.getItem(vSW.name));
-            //console.log(`Kayit oncesi data: ${JSON.stringify(playedGameLogs)}`);
-            let messageType = 'success';
+            let messageType = 'large_success';
+
+
             if(data.didWin){
                 playedGameLogs.score[(vSW.gameBoard.guessedWords.length)]+=1
                 window.localStorage.setItem(vSW.name,JSON.stringify(playedGameLogs))
                 setTimeout(vSW.gameBoard.reset,2000);
             }else{
-                messageType= 'error';
+                messageType= 'large_fail';
                 playedGameLogs.score["fail"]+=1
                 window.localStorage.setItem(vSW.name,JSON.stringify(playedGameLogs))
                 setTimeout(vSW.gameBoard.reset,2000);
             }
-            vSW.toastMessages({message:data.message.toString(), time:5, type:messageType});
-            vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
+
+            await vSW.toastMessages({message:data.message.toString(), time:5, type:messageType});
+            setTimeout(
+                 ()=>{
+            document.querySelector(".infoBox").classList.remove("hidden");
+                    vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
+               },5
+            )
+
             document.querySelectorAll( `#${vSW.name}-keyboard button`).forEach(btn=>btn.setAttribute('disabled','disabled'));
             //console.log(`Kayit sonrasi data: ${JSON.stringify(playedGameLogs)}`);
 
@@ -442,6 +450,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             deleteButton.id=`${vSW.name}-delete-button`;
             deleteButton.addEventListener('click',()=>{
                 let lastGuessedWord = vSW.gameBoard.guessedWords[vSW.gameBoard.guessedWords.length-1];
+                //if(lastGuessedWord!=="undefined" ) return;
                 if(lastGuessedWord.length){
                     // if(lastGuessedWord.length<vSW.gameBoard.colCount){
                     vSW.gameBoard.guessedWords[vSW.gameBoard.guessedWords.length-1].length=lastGuessedWord.length-1;
@@ -473,15 +482,20 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             let largeMessage = document.createElement('div');
             largeMessage.id = vSW.name + '_largeMessageBox';
             largeMessage.classList.add('largeMessageBox');
-            document.body.appendChild(largeMessage);
+            document.querySelector('.game-board').insertAdjacentElement('afterend',largeMessage);
 
         },
         showMessage(message={html:String, timeout: Number}){
-
+            if(!document.getElementById(vSW.name + '_largeMessageBox')){
+            vSW.largeMessageBox.create();
+            }
             let largeMessageBox = document.getElementById(vSW.name + '_largeMessageBox');
             largeMessageBox.innerHTML=message.html;
             largeMessageBox.style.display="block";
-            largeMessageBox.classList.add('glowing');
+            largeMessageBox.style.position="absolute";
+            largeMessageBox.style.zIndex=999999;
+            //largeMessageBox.classList.add('glowing');
+
 
 
             let largeMessageTimer = setTimeout(() =>{
@@ -492,36 +506,46 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
 
         }
     },
-    toastMessages:(dataObj={message:String, time:Number, type:String})=>{
+    toastMessages:async (dataObj={message:String, time:Number, type:String})=>{
         //alert(message);
-        if(!document.querySelector('.toastContainer')){
-            let toastContainer = document.createElement('div');
-            toastContainer.classList.add('toastContainer');
-            document.body.appendChild(toastContainer);
-        }
-        let toastDivs = document.querySelectorAll('.toast');
-        let toastDiv = document.createElement('div');
-        toastDiv.classList.add('toast', dataObj.type);
-        let moment = new Date();
-        toastDiv.innerHTML = dataObj.message ;
-        document.querySelector('.toastContainer').appendChild(toastDiv);
-        setTimeout(() => {
-            toastDiv.remove();
-            if(!document.querySelectorAll('.toast').length){
-                document.querySelector('.toastContainer').remove();
+        if(dataObj.type.includes('large')){
+            let wordMeanings= '';
+            if(vSW.wordMeaningQueryAPIURL){
+                wordMeanings = '<p><ul>'+(await vSW.getTheMeaning(vSW.dictionary[vSW.askedWordIndex])).map(word =>`<li><strong>${word}</strong>`).join('')+'</ul></p>';
             }
-        }, 5*1000);
+            vSW.largeMessageBox.showMessage({ html: dataObj.message+ wordMeanings,  timeout: dataObj.time });
+        }else{
+            if(!document.querySelector('.toastContainer')){
+                let toastContainer = document.createElement('div');
+                toastContainer.classList.add('toastContainer');
+                document.body.appendChild(toastContainer);
+            }
+            let toastDivs = document.querySelectorAll('.toast');
+            let toastDiv = document.createElement('div');
+            toastDiv.classList.add('toast', dataObj.type);
+            let moment = new Date();
+            toastDiv.innerHTML = dataObj.message ;
+            document.querySelector('.toastContainer').appendChild(toastDiv);
+            setTimeout(() => {
+                toastDiv.remove();
+                if(!document.querySelectorAll('.toast').length){
+                    document.querySelector('.toastContainer').remove();
+                }
+            }, dataObj.time*1000);
+        }
+
     },
-    getTheMeaning:  (word)=>{
+    getTheMeaning: async (word)=>{
+        if(!vSW.wordMeaningQueryAPIURL) return;
         vSW.meaningsOfWords[word]=[];
-       fetch('https://sozluk.gov.tr/gts?ara='+word)
+       await fetch(vSW.wordMeaningQueryAPIURL+word)
            .then(response=>response.json())
            .then(jsonData=>{
                jsonData[0].anlamlarListe.forEach(item=>{
                    vSW.meaningsOfWords[word].push(item.anlam.toString());
                })
            })
-
+    return vSW.meaningsOfWords[word];
     },
     showTheMeaning:(word)=>{
         let theWordMeaningDiv;

@@ -10,7 +10,7 @@ export default {
         'y', 'z'
     ], // Character set remains the same
     langConvertMaps: {},
-    wordMeaningQueryAPIURL: "https://dictionary.com/search/", // API URL changed to English dictionary
+    wordMeaningQueryAPIURL: null,
     titles_translations: { // Title translations
         score: "SCORE", // Score translated
         toastMessages: [
@@ -38,6 +38,6 @@ export default {
             "Select a language:",
             "Please select a language from below",
         ],
-        largeMessageBoxMessages:["Bravvvoooooooooooooooo, sorulan kelimeyi buldunuz! Kelime: ","Oyun bitti! Maalesef kaybettiniz!. Sorulan kelime:"]
+        largeMessageBoxMessages:["Bravvvoooooooooooooooo, you found the word! Word is: ","Game finished! Unfortunately you lost! The word was:"]
     }
 }
