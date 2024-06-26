@@ -14,6 +14,7 @@ export default {
             s:"SS"
     },
     wordMeaningQueryAPIURL: null,
+    ariaLabels:["Bu tuşun karakteri: ","Son karakteri sil","Kelimeyi dene"],
     titles_translations: { // Title translations
         score: "PUNKTESTAND", // Score translated
         toastMessages: [

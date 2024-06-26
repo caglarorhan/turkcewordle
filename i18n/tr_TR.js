@@ -11,6 +11,7 @@ export default {
     ],
     langConvertMaps: {u: 'ü', i: 'i', o: 'ö', c: 'ç', s: 'ş', g: 'ğ'},
     wordMeaningQueryAPIURL:"https://sozluk.gov.tr/gts?ara=",
+    ariaLabels:["Bu tuşun karakteri: ","Son karakteri sil","Kelimeyi dene"],
     titles_translations:{
         score: "SKOR",
         toastMessages:[

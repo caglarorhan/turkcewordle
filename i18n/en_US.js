@@ -11,6 +11,7 @@ export default {
     ], // Character set remains the same
     langConvertMaps: {},
     wordMeaningQueryAPIURL: null,
+    ariaLabels:["Character of this key is: ","Delete last character","Try this word"],
     titles_translations: { // Title translations
         score: "SCORE", // Score translated
         toastMessages: [

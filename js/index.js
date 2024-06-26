@@ -438,6 +438,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
                 button.innerHTML = char.toLocaleUpperCase(vSW.localeCode);
                 button.dataset.letterValue=char.toLocaleUpperCase(vSW.localeCode);
                 button.classList.add("keyboard-button");
+                button.setAttribute('aria-label', `${vSW.ariaLabels[0]} ${char}`);
                 button.addEventListener('click', () => {
                     vSW.gameBoard.addChar(char);
                 });
@@ -448,6 +449,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             deleteButton.classList.add("keyboard-button", "wide-button");
             deleteButton.innerHTML = "←";
             deleteButton.id=`${vSW.name}-delete-button`;
+            deleteButton.setAttribute('aria-label', vSW.ariaLabels[1]);
             deleteButton.addEventListener('click',()=>{
                 let lastGuessedWord = vSW.gameBoard.guessedWords[vSW.gameBoard.guessedWords.length-1];
                 //if(lastGuessedWord!=="undefined" ) return;
@@ -465,6 +467,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             enterButton.classList.add("keyboard-button","wide-button");
             enterButton.innerHTML = "⏎";
             enterButton.id=`${vSW.name}-enter-button`;
+            enterButton.setAttribute('aria-label', vSW.ariaLabels[2]);
             enterButton.addEventListener('click',vSW.gameBoard.checkEnteredWord);
             document.getElementById(vSW.name + '-keyboard').appendChild(enterButton);
 
@@ -583,6 +586,7 @@ window.addEventListener('load',async ()=>{
     document.body.classList.add('body');
     let logo = document.createElement('img');
     logo.src='./img/TurkceWordle_24.png';
+    logo.alt = "This is TurkceWordle game logo. It is a merged W,O,R,D letters in squares."
     logo.classList.add('logo');
     document.body.insertAdjacentElement('afterbegin',logo);
     let versionTag = document.createElement('div');

@@ -16,6 +16,7 @@ export default {
             u:"ú"
     },
     wordMeaningQueryAPIURL: null,
+    ariaLabels:["Bu tuşun karakteri: ","Son karakteri sil","Kelimeyi dene"],
     titles_translations: { // Title translations
         score: "PUNTUACIÓN", // Score translated
         toastMessages: [
