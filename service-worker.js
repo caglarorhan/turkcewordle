@@ -6,7 +6,8 @@ self.addEventListener('install', function(event) {
                 '/',
                 '/index.html',
                 '/css/index.css',
-                '/img/TurkceWordle_256.png'
+                '/img/TurkceWordle_256.png',
+                '/img/settings.png'
             ]);
         })
     );

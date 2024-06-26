@@ -586,7 +586,9 @@ window.addEventListener('load',async ()=>{
     document.body.classList.add('body');
     let logo = document.createElement('img');
     logo.src='./img/TurkceWordle_24.png';
-    logo.alt = "This is TurkceWordle game logo. It is a merged W,O,R,D letters in squares."
+    logo.alt = "This is TurkceWordle game logo. It is a merged W,O,R,D letters in squares.";
+    logo.style.width = "24px";
+    logo.style.height = "24px";
     logo.classList.add('logo');
     document.body.insertAdjacentElement('afterbegin',logo);
     let versionTag = document.createElement('div');
@@ -594,7 +596,7 @@ window.addEventListener('load',async ()=>{
     document.body.insertAdjacentElement('afterbegin',versionTag);
     versionTag.appendChild(logo);
     versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.writtenName} <sup class="version">v.${vSW.version}</sup></span>`;
-    versionTag.innerHTML+=` <button class="settings" title="Open the settings"><img src="../img/settings.png" alt="Settings"> </button>`;
+    versionTag.innerHTML+=` <button class="settings" title="Open the settings"><img src="../img/settings.png" alt="Settings" height="16" width="16" > </button>`;
     document.querySelector('.settings').addEventListener('click',()=>{
         vSW.openLanguageSelectionDialog()
     })
