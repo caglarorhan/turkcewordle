@@ -5,6 +5,8 @@
 
 Turkish Word Guess Game is a fun and educational game inspired by the popular Wordle. This game challenges players to guess a hidden Turkish word within a limited number of attempts. It's an engaging way to improve vocabulary and language skills while having fun.
 
+Multi-language support added. You can play the game in English, Spanish, German and Turkish. You can add your own language support by following the instructions below.  [i18n Support and Contribution section](#i18n-support-and-contribution). 
+
 ![Game Screenshot](/screenshots/emptygameboard.JPG)
 ![Game Screenshot](/screenshots/filledgameboard.JPG)
 ![Game Screenshot](/screenshots/game_information.JPG)
