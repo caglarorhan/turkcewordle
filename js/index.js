@@ -1,4 +1,4 @@
-document.body.innerHTML='';
+//document.body.innerHTML='';
 const vSW = {
     version:'2024.1.0',
     author:'https://github.com/caglarorhan',
@@ -488,7 +488,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             document.querySelector('.game-board').insertAdjacentElement('afterend',largeMessage);
 
         },
-        showMessage(message={html:String, timeout: Number}){
+        async showMessage(message={html:String, timeout: Number}){
             if(!document.getElementById(vSW.name + '_largeMessageBox')){
             vSW.largeMessageBox.create();
             }
@@ -499,6 +499,12 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
             largeMessageBox.style.zIndex=999999;
             //largeMessageBox.classList.add('glowing');
 
+            let wordMeanings= '';
+            largeMessageBox.innerHTML+=''; // word meaning is fetching...
+            if(vSW.wordMeaningQueryAPIURL){
+                wordMeanings = '<p><ul>'+( await vSW.getTheMeaning(vSW.dictionary[vSW.askedWordIndex])).map(meaning =>`<li>${meaning}`).join('')+'</ul></p>';
+                largeMessageBox.innerHTML+=wordMeanings;
+            }
 
 
             let largeMessageTimer = setTimeout(() =>{
@@ -509,14 +515,10 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
 
         }
     },
-    toastMessages:async (dataObj={message:String, time:Number, type:String})=>{
+    toastMessages: (dataObj={message:String, time:Number, type:String})=>{
         //alert(message);
         if(dataObj.type.includes('large')){
-            let wordMeanings= '';
-            if(vSW.wordMeaningQueryAPIURL){
-                wordMeanings = '<p><ul>'+(await vSW.getTheMeaning(vSW.dictionary[vSW.askedWordIndex])).map(word =>`<li><strong>${word}</strong>`).join('')+'</ul></p>';
-            }
-            vSW.largeMessageBox.showMessage({ html: dataObj.message+ wordMeanings,  timeout: dataObj.time });
+            vSW.largeMessageBox.showMessage({ html: dataObj.message+ vSW.dictionary[vSW.askedWordIndex],  timeout: dataObj.time });
         }else{
             if(!document.querySelector('.toastContainer')){
                 let toastContainer = document.createElement('div');
@@ -583,6 +585,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
 window.addEventListener('resize', vSW.hideTheMeaning);
 window.addEventListener('load',async ()=>{
     await vSW.init();
+document.querySelector('#loading-screen').remove();
     document.body.classList.add('body');
     let logo = document.createElement('img');
     logo.src='./img/TurkceWordle_24.png';
