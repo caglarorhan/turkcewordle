@@ -650,3 +650,14 @@ window.addEventListener('beforeinstallprompt', (e) => {
     vSW.deferredPrompt = e;
 });
 
+window.addEventListener('load', () => {
+    let installButton = document.querySelector('.install'); // Replace with your install button selector
+
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        // The app is running in standalone mode, hide the install button
+        installButton.style.display = 'none';
+    } else {
+        // The app is not running in standalone mode, show the install button
+        installButton.style.display = 'block';
+    }
+});
