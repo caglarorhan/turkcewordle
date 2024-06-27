@@ -8,6 +8,7 @@ const vSW = {
     dictionary:[],
     askedWordIndex:null,
     isSHIFTPressed:false,
+    deferredPrompt: null,
     meaningsOfWords:Object.create(null),
     init: async () => {
         if( vSW.isLanguageSelected()){
@@ -26,8 +27,12 @@ const vSW = {
                 vSW.gameBoard.setBoard();
                 vSW.largeMessageBox.create();
                 vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
-
             })
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this.deferredPrompt = e;
+        });
     },
     isLanguageSelected:()=>{
         return localStorage.getItem("selectedLanguage") && localStorage.getItem("selectedLanguage")!=="undefined"
@@ -554,7 +559,21 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
                })
            })
     return vSW.meaningsOfWords[word];
-    }
+    },
+    promptPWAInstallation: () => {
+        alert('eeee')
+        if (vSW.deferredPrompt) {
+            vSW.deferredPrompt.prompt();
+            vSW.deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                vSW.deferredPrompt = null;
+            });
+        }
+    },
 }
 window.addEventListener('load',async ()=>{
     await vSW.init();
@@ -572,9 +591,16 @@ document.querySelector('#loading-screen').remove();
     document.body.insertAdjacentElement('afterbegin',versionTag);
     versionTag.appendChild(logo);
     versionTag.innerHTML+=` <span class="logoVersionTag"> ${vSW.writtenName} <sup class="version">v.${vSW.version}</sup></span>`;
-    versionTag.innerHTML+=` <button class="settings" title="Open the settings"><img src="../img/settings.png" alt="Settings" height="16" width="16" > </button>`;
+    versionTag.innerHTML+=`<span class="actionButtons">
+                                                <button class="install" title="Install this game"><img src="../img/install.png" alt="Install"> </button>
+                                                <button class="settings" title="Open the settings"><img src="../img/settings.png" alt="Settings"> </button>
+                                                </span>`;
     document.querySelector('.settings').addEventListener('click',()=>{
         vSW.openLanguageSelectionDialog()
+    })
+    document.querySelector('.install').addEventListener('click',()=>{
+        alert('olmasi gerek');
+        vSW.promptPWAInstallation();
     })
 
 });
