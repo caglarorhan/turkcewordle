@@ -28,11 +28,6 @@ const vSW = {
                 vSW.largeMessageBox.create();
                 vSW.gameBoard.showInfo(vSW.titles_translations.score,JSON.parse(window.localStorage.getItem(vSW.name)).score);
             })
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            this.deferredPrompt = e;
-        });
     },
     isLanguageSelected:()=>{
         return localStorage.getItem("selectedLanguage") && localStorage.getItem("selectedLanguage")!=="undefined"
@@ -561,7 +556,6 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
     return vSW.meaningsOfWords[word];
     },
     promptPWAInstallation: () => {
-        alert('eeee')
         if (vSW.deferredPrompt) {
             vSW.deferredPrompt.prompt();
             vSW.deferredPrompt.userChoice.then((choiceResult) => {
@@ -599,7 +593,6 @@ document.querySelector('#loading-screen').remove();
         vSW.openLanguageSelectionDialog()
     })
     document.querySelector('.install').addEventListener('click',()=>{
-        alert('olmasi gerek');
         vSW.promptPWAInstallation();
     })
 
@@ -651,4 +644,9 @@ document.addEventListener("keyup", event => {
                         //console.log('SHIFT key birakildi:'+ vSW.isSHIFTPressed);
                         }
 })
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    vSW.deferredPrompt = e;
+});
 
