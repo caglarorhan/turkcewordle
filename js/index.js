@@ -157,8 +157,6 @@ const vSW = {
                     btn.classList.add("keyboard-button");
                 }
             })
-
-            vSW.hideTheMeaning();
         },
         setBoard: () => {
             for (let row = 0; row < vSW.gameBoard.rowCount; row++) {
@@ -186,12 +184,8 @@ const vSW = {
                     if(vSW.gameBoard.guessedWords[parseInt(srcItem.dataset.rowNo)]){
                         let focusedGuessedWord = vSW.gameBoard.guessedWords[parseInt(srcItem.dataset.rowNo)].join('');
                         if(focusedGuessedWord.length>0 && vSW.dictionary.includes(focusedGuessedWord)){
-                            //vSW.showTheMeaning(focusedGuessedWord);
                         }
                     }
-                })
-                rowDiv.addEventListener('mouseout',()=>{
-                    vSW.hideTheMeaning();
                 })
                 document.getElementById(vSW.name).appendChild(rowDiv);
             }
@@ -551,38 +545,8 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
                })
            })
     return vSW.meaningsOfWords[word];
-    },
-    showTheMeaning:(word)=>{
-        let theWordMeaningDiv;
-        if(document.getElementById(`${vSW.name}-meanings`)){
-            theWordMeaningDiv = document.getElementById(`${vSW.name}-meanings`);
-        }else{
-            theWordMeaningDiv= document.createElement('div')
-            theWordMeaningDiv.id = `${vSW.name}-meanings`;
-        }
-        theWordMeaningDiv.classList.add('showTheMeaningDiv');
-        theWordMeaningDiv.innerHTML=`<h4>${word.toLocaleUpperCase(vSW.localeCode)}</h4><ol>`;
-        vSW.meaningsOfWords[word].forEach(anlam=>{
-            theWordMeaningDiv.innerHTML+=`<li>${anlam}</li>`;
-        });
-        theWordMeaningDiv.innerHTML+=`<hr>Kaynak: <a href="https://sozluk.gov.tr" target="_blank" rel="noopener noreferrer">TDK Dil Sozlugu</a>`;
-        let boardDivItem = document.querySelector(`#${vSW.name}`);
-        let rect = boardDivItem.getBoundingClientRect();
-        theWordMeaningDiv.style.top = rect.top+"px";
-        theWordMeaningDiv.style.left = (rect.left-300-10)+"px";
-        theWordMeaningDiv.style.height = (rect.bottom-rect-top)+"px";
-        document.body.append(theWordMeaningDiv);
-    },
-    hideTheMeaning:()=>{
-        if(document.querySelector(`#${vSW.name}-meanings`)){
-            document.querySelector(`#${vSW.name}-meanings`).remove();
-        }
-    },
-    padStartWithZero:(number)=>{
-        return number.toString().padStart(2, '0');
     }
 }
-window.addEventListener('resize', vSW.hideTheMeaning);
 window.addEventListener('load',async ()=>{
     await vSW.init();
 document.querySelector('#loading-screen').remove();
