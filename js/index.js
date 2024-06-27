@@ -433,11 +433,20 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
                 button.dataset.letterValue=char.toLocaleUpperCase(vSW.localeCode);
                 button.classList.add("keyboard-button");
                 button.setAttribute('aria-label', `${vSW.ariaLabels[0]} ${char}`);
-                button.addEventListener('click', () => {
-                    vSW.gameBoard.addChar(char);
-                });
+                // button.addEventListener('click', () => {
+                //     vSW.gameBoard.addChar(char);
+                // });
                 document.getElementById(vSW.name + '-keyboard').appendChild(button);
             })
+            // Attach event listener to the parent element
+            document.getElementById(vSW.name + '-keyboard').addEventListener('click', event => {
+                // Check if the clicked element is a button
+                if (event.target.classList.contains('keyboard-button') && !event.target.classList.contains('wide-button')) {
+                    vSW.gameBoard.addChar(event.target.dataset.letterValue);
+                }
+            });
+
+
             // DELETE BUTTON
             let deleteButton = document.createElement('button');
             deleteButton.classList.add("keyboard-button", "wide-button");
@@ -512,7 +521,7 @@ ${vSW.titles_translations.infoBoxMessages[4]} <a title="${vSW.titles_translation
     toastMessages: (dataObj={message:String, time:Number, type:String})=>{
         //alert(message);
         if(dataObj.type.includes('large')){
-            vSW.largeMessageBox.showMessage({ html: dataObj.message+ vSW.dictionary[vSW.askedWordIndex],  timeout: dataObj.time });
+            vSW.largeMessageBox.showMessage({ html: dataObj.message,  timeout: dataObj.time });
         }else{
             if(!document.querySelector('.toastContainer')){
                 let toastContainer = document.createElement('div');
