@@ -7,9 +7,48 @@
   "theme_color": "#2196F3",
   "icons": [
     {
+      "src": "./img/TurkceWordle_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
       "src": "./img/TurkceWordle_256.png",
       "sizes": "256x256",
       "type": "image/png"
+    },
+    {
+      "src": "./img/TurkceWordle_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/TurkceWordle_64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/TurkceWordle_32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/TurkceWordle_24.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "./img/TurkceWordle_16.png",
+      "sizes": "16x16",
+      "type": "image/png"
     }
+  ],
+  "description": "The Turkish Wordle Game is a fun and educational game inspired by the popular Wordle. This game challenges players to guess a hidden word within a limited number of attempts. It's an engaging way to improve vocabulary and language skills while having fun. Now with multilingual support, players can enjoy the game in various languages, enhancing their learning experience across different languages.",
+  "dir": "ltr",
+  "lang": "en",
+  "orientation": "portrait",
+  "categories": [
+    "education",
+    "entertainment",
+    "games"
   ]
 }

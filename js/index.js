@@ -621,7 +621,6 @@ document.addEventListener("keydown", event => {
     }
     if (/^[a-z]*$/gi.test(event.key) && event.key.length===1){
         if(vSW.isSHIFTPressed){
-            //console.log('Shift key basiliyken tusa basildi. Basilan tus: '+event.key);
             let realChar = vSW.langConvertMaps[event.key.toLocaleLowerCase(vSW.localeCode)] || event.key.toLocaleLowerCase(vSW.localeCode)
             vSW.gameBoard.addChar(realChar)
         }else{
@@ -650,14 +649,3 @@ window.addEventListener('beforeinstallprompt', (e) => {
     vSW.deferredPrompt = e;
 });
 
-window.addEventListener('load', () => {
-    let installButton = document.querySelector('.install'); // Replace with your install button selector
-
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-        // The app is running in standalone mode, hide the install button
-        installButton.style.display = 'none';
-    } else {
-        // The app is not running in standalone mode, show the install button
-        installButton.style.display = 'block';
-    }
-});

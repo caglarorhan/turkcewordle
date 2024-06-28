@@ -39,7 +39,9 @@ font-size: 10px;
 }
 
 .actionButtonsSpan{
-    width:70px;
+    display:flex;
+    justify-content: space-between;
+    width: fit-content;
     border:1px solid red;
     padding:0;
 }
