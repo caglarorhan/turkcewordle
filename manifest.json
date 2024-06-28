@@ -50,5 +50,13 @@
     "education",
     "entertainment",
     "games"
+  ],
+  "id": "TurkishWordleGame202401",
+  "display_override": [
+    "browser",
+    "fullscreen",
+    "minimal-ui",
+    "standalone",
+    "window-controls-overlay"
   ]
 }
