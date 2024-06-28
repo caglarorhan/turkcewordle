@@ -58,5 +58,40 @@
     "minimal-ui",
     "standalone",
     "window-controls-overlay"
+  ],
+  "launch_handler": {
+    "client_mode": ["navigate-existing", "auto"]
+  },
+  "screenshots" : [
+    { "src": "./img/screenshots/emptygameboard.jpg",
+      "sizes": "785x754",
+      "type": "image/jpg",
+      "platform": "wide"
+    },
+    { "src": "./img/screenshots/filledgameboard.jpg",
+      "sizes": "232x347",
+      "type": "image/jpg",
+      "platform": "wide"
+    },
+    { "src": "./img/screenshots/ScoreTable-A.jpg",
+      "sizes": "196x373",
+      "type": "image/jpg",
+      "platform": "wide"
+    },
+    { "src": "./img/screenshots/LanguageSelection-A.jpg",
+      "sizes": "617x881",
+      "type": "image/jpg",
+      "platform": "wide"
+    },
+    { "src": "./img/screenshots/shiftkeypressed.jpg",
+      "sizes": "785x753",
+      "type": "image/jpg",
+      "platform": "wide"
+    },
+    { "src": "./img/screenshots/warningtoastmessage.jpg",
+      "sizes": "1347x902",
+      "type": "image/jpg",
+      "platform": "wide"
+    }
   ]
 }
