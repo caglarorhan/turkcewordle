@@ -263,6 +263,9 @@ const vSW = {
             // console.log(askedWord);
             // console.log(JSON.stringify(vSW.gameBoard.guessedWords))
 
+            // convert input to lowerCase but locale
+            lastEnteredWord = lastEnteredWord.map(letter=>letter.toLocaleLowerCase(vSW.localeCode));
+
             if(lastEnteredWord.length!==vSW.gameBoard.colCount){
                 //vSW.gameBoard.guessedWords.forEach(word=>console.log(word));
                 console.log(lastEnteredWord.length,vSW.gameBoard.colCount)
