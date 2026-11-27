@@ -7,4 +7,4 @@ Glass UI, light/dark/system theme, Standard and Timer modes with separate scores
 - `manifest.webmanifest`, `sw.js`, `icons/` – PWA files
 - `docs/removed-words.txt` – words removed from the dictionaries
 
-The original multi-file version is kept in the `classic` branch and the `classic-v2024` tag.
+The original multi-file version is kept in the `classic` branch.
