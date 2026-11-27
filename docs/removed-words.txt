@@ -1,0 +1,14 @@
+Words removed from the Word Guess dictionaries (explicit sexual terms, genital words, profanity, slurs).
+Restore any word by adding it back to the matching dictionaries/<locale>.js file.
+
+## en_US: 5757 -> 5710 words (47 removed)
+arses, bimbo, bitch, boner, boobs, chink, cocks, coons, cunts, dicks, dildo, dykes, fagot, fucks, gooks, homos, horny, kikes, kinky, labia, negro, nudes, penes, penis, pimps, porno, prick, pubes, pussy, raped, raper, rapes, semen, shits, slags, sluts, smuts, spazz, sperm, spics, titty, turds, turdy, twats, twink, vulva, whore
+
+## de_DE: 6832 -> 6801 words (31 removed)
+Arsch, Bimbo, bumse, bumst, Dildo, Dirne, Dödel, ficke, Ficks, fickt, Fotze, Hoden, Homos, huren, Ische, kacke, kackt, Kimme, Mösen, Neger, Negro, Nutte, Penes, Penis, pisse, pisst, Porno, Pussy, Titte, Vulva, wichs
+
+## es_ES: 10836 -> 10803 words (33 removed)
+coito, coñon, coños, culea, culon, culos, folla, folle, jodan, jodas, joded, joden, joder, jodes, jodia, jodio, ojete, pedos, penes, penis, picha, pijas, polla, porno, putal, putas, puton, putos, semen, tetas, verga, vulva, zorra
+
+## tr_TR: 5532 -> 5515 words (13 removed)
+boklu, dölek, fagot, kahpe, penes, penis, porno, semen, sikme, sperm, taşak, vulva, yarak
